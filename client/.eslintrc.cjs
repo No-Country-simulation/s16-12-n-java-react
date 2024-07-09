@@ -40,6 +40,11 @@ module.exports = {
     "react/jsx-props-no-spreading": "off",
     "global-require": "off",
     "react/jsx-props-no-spreading": "off",
-    'import/no-unresolved': 'off'
+    'import/no-unresolved': 'off',
+    'react/prop-types': 'off',
+    'react/no-array-index-key': 'off',
+    'consistent-return': 'off',
+    'react/jsx-no-constructed-context-values': 'off',
+    'object-shorthand': 'off'
   },
 }
