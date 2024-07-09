@@ -1,10 +1,5 @@
-import { Button } from '@/components/ui/button';
+import HomePage from './pages/HomePage';
 
 export default function App() {
-  return (
-    <h1 className='text-3xl font-bold underline'>
-      Hello world!
-      <Button>Button</Button>
-    </h1>
-  );
+  return <HomePage />;
 }
