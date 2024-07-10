@@ -1,10 +1,16 @@
-import { Button } from '@/components/ui/button';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 
-export default function App() {
+import Home from '../pages/Home';
+import NotFound from '../pages/NotFound';
+
+const App: React.FC = () => {
   return (
-    <h1 className='text-3xl font-bold underline'>
-      Hello world!
-      <Button>Button</Button>
-    </h1>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
-}
+};
+
+export default App;
