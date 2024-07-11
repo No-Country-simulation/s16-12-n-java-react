@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { HomeCarousel } from '@/components/HomeCarousel';
 import { Cards } from '@/components/HomeCards';
 import {
@@ -10,15 +9,11 @@ import {
 import HomeRegister from '@/components/HomeRegister';
 import HomeLogin from '@/components/HomeLogin';
 import NavBar from '@/components/NavBar';
+import { useModalStore } from '../store/modalStore';
 
 const HomePage = () => {
-  const [mostrarRegister, setMostrarRegister] = useState(false);
-  const [mostrarLogin, setMostrarLogin] = useState(false);
 
-  const handleCloseModal = () => {
-    if (mostrarRegister) setMostrarRegister(false);
-    if (mostrarLogin) setMostrarLogin(false);
-  };
+  const { mostrarRegister, mostrarLogin, handleCloseModal } = useModalStore();
 
   return (
     <main className=''>
