@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { HomeCarousel } from '@/components/HomeCarousel';
 import { Cards } from '@/components/HomeCards';
 import {
