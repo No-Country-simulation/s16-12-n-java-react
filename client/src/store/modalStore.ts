@@ -13,8 +13,9 @@ export const useModalStore = create<ModalState>((set) => ({
   mostrarLogin: false,
   setMostrarRegister: (show: boolean) => set({ mostrarRegister: show }),
   setMostrarLogin: (show: boolean) => set({ mostrarLogin: show }),
-  handleCloseModal: () => set((state) => ({
-    mostrarRegister: state.mostrarRegister ? false : state.mostrarRegister,
-    mostrarLogin: state.mostrarLogin ? false : state.mostrarLogin,
-  })),
+  handleCloseModal: () =>
+    set((state) => ({
+      mostrarRegister: state.mostrarRegister ? false : state.mostrarRegister,
+      mostrarLogin: state.mostrarLogin ? false : state.mostrarLogin,
+    })),
 }));

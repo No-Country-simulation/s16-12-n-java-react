@@ -13,7 +13,6 @@ import { useModalStore } from '../store/modalStore';
 import Footer from '@/components/Footer';
 
 const HomePage = () => {
-
   const { mostrarRegister, mostrarLogin, handleCloseModal } = useModalStore();
 
   return (
