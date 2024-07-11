@@ -7,9 +7,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
 import HomeRegister from '@/components/HomeRegister';
 import HomeLogin from '@/components/HomeLogin';
+import NavBar from '@/components/NavBar';
 
 const HomePage = () => {
   const [mostrarRegister, setMostrarRegister] = useState(false);
@@ -23,8 +23,7 @@ const HomePage = () => {
   return (
     <main className=''>
       {/* Section Carousel */}
-      <Button onClick={() => setMostrarRegister(true)}>Registrarse</Button>
-      <Button onClick={() => setMostrarLogin(true)}>Iniciar Sesion</Button>
+      <NavBar />
       <section className=''>
         <HomeCarousel />
       </section>
