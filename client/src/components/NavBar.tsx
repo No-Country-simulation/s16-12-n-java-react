@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 interface INavBarProps { }
 
 const NavBar: FunctionComponent<INavBarProps> = () => {
+
     return (
         <nav className="flex items-center justify-between p-4 bg-white shadow-md">
             <div className="flex items-center space-x-4">
@@ -14,8 +15,8 @@ const NavBar: FunctionComponent<INavBarProps> = () => {
             <div className="flex items-center space-x-4">
                 <Link to="/" className="text-gray-800 hover:text-gray-600">Inicio</Link>
                 <Link to="/about" className="text-gray-800 hover:text-gray-600">Nosotros</Link>
-                <Button className="px-4 py-2 text-gray-800 border border-gray-800 rounded bg-gray-100 hover:bg-gray-100" onClick={() => setMostrarRegister(true)}>Registrar</Button>
-                <Button className="px-4 py-2 text-white bg-gray-800 rounded hover:bg-gray-600" onClick={() => setMostrarLogin(true)}>Login</Button>
+                <Button className="px-4 py-2 text-gray-800 border border-gray-800 rounded bg-gray-100 hover:bg-gray-100" onClick={() => console.log()/* setMostrarRegister(true) */}>Registrar</Button>
+                <Button className="px-4 py-2 text-white bg-gray-800 rounded hover:bg-gray-600" onClick={() => console.log() /* setMostrarLogin(true) */}>Login</Button>
             </div>
         </nav>
     );
