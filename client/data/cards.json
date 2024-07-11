@@ -1,0 +1,34 @@
+{
+    "cards":[
+        {
+            "imagen" : "../src/assets/Image-not-found.png",
+            "title" : "Titulo",
+            "subtitle" : "Subtitulo"
+        },
+        {
+            "imagen" : "../src/assets/Image-not-found.png",
+            "title" : "Titulo",
+            "subtitle" : "Subtitulo"
+        },
+        {
+            "imagen" : "../src/assets/Image-not-found.png",
+            "title" : "Titulo",
+            "subtitle" : "Subtitulo"
+        },
+        {
+            "imagen" : "../src/assets/Image-not-found.png",
+            "title" : "Titulo",
+            "subtitle" : "Subtitulo"
+        },
+        {
+            "imagen" : "../src/assets/Image-not-found.png",
+            "title" : "Titulo",
+            "subtitle" : "Subtitulo"
+        },
+        {
+            "imagen" : "../src/assets/Image-not-found.png",
+            "title" : "Titulo",
+            "subtitle" : "Subtitulo"
+        }
+    ]
+}
