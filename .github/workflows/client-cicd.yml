@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - dev
+      - dev-frontend
 
 jobs:
   lint:
