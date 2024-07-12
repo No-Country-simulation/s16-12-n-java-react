@@ -9,7 +9,7 @@ export default function App() {
     <Routes>
       <Route path='/' element={<HomePage />} />
       <Route path='*' element={<NotFound />} />
-      <Route path='/TareaConfirmada' element={<TareaConfirmada/>} />
+      <Route path='/TareaConfirmada' element={<TareaConfirmada />} />
     </Routes>
   );
 }
