@@ -32,8 +32,6 @@ public class Usuario implements UserDetails {
     private String contrasena;
     @Column(name = "nombre", length = 100)
     private String nombre;
-    @Column(name = "apellido", length = 100)
-    private String apellido;
     private TipoUsuario tipoUsuario;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -77,6 +75,6 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.contrasena;
     }
 }
