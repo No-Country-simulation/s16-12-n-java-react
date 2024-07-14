@@ -2,7 +2,7 @@ package com.api.backend.Services;
 
 import com.api.backend.entities.DTO.TareaRequest;
 import com.api.backend.entities.Tarea;
-import org.springframework.scheduling.config.Task;
+
 
 import java.util.List;
 
