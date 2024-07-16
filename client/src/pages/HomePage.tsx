@@ -15,7 +15,6 @@ const HomePage = () => {
 
   return (
     <main className=''>
-      
       <section className=''>
         <HomeCarousel />
       </section>
@@ -66,7 +65,6 @@ const HomePage = () => {
       {/* Renderizar el modal */}
       <HomeRegister mostrar={mostrarRegister} onClose={handleCloseModal} />
       <HomeLogin mostrar={mostrarLogin} onClose={handleCloseModal} />
-    
     </main>
   );
 };
