@@ -66,7 +66,6 @@ const HomePage = () => {
       {/* Renderizar el modal */}
       <HomeRegister mostrar={mostrarRegister} onClose={handleCloseModal} />
       <HomeLogin mostrar={mostrarLogin} onClose={handleCloseModal} />
-
     </main>
   );
 };
