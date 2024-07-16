@@ -20,6 +20,8 @@ import com.api.backend.entities.enums.TipoUsuario;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService{
@@ -50,6 +52,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         user.setContrasena(passwordEncoder.encode(registerRequestDto.contrasena()));
         user.setNombre(registerRequestDto.nombre());
         user.setTipoUsuario(TipoUsuario.USUARIO);
+        user.setFechaRegistro(new Date());
         userRepository.save(user);
         String token = jwtService.getToken(user);
         return new AuthResponseDto(token);
