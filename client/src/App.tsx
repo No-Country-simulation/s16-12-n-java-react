@@ -12,16 +12,16 @@ import RevisionDeTareas from './pages/RevisionDeTareas';
 export default function App() {
   return (
     <>
-    <NavBar/>
-    <Routes>
-      <Route path='/' element={<HomePage />} />
-      <Route path='*' element={<NotFound />} />
-      <Route path='/TareaRechazada' element={<TareaRechazada />} />
-      <Route path='/nuevaTarea' element={<NuevaTarea />} />
-      <Route path='/TareaConfirmada' element={<TareaConfirmada />} />
-      <Route path='/RevisionDeTareas' element={<RevisionDeTareas/>} />
-    </Routes>
-    <Footer/>
+      <NavBar />
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='*' element={<NotFound />} />
+        <Route path='/TareaRechazada' element={<TareaRechazada />} />
+        <Route path='/nuevaTarea' element={<NuevaTarea />} />
+        <Route path='/TareaConfirmada' element={<TareaConfirmada />} />
+        <Route path='/RevisionDeTareas' element={<RevisionDeTareas />} />
+      </Routes>
+      <Footer />
     </>
   );
 }
