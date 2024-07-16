@@ -6,7 +6,7 @@ RUN mvn clean package -DskipTests
 
 # Etapa 2: Crea la imagem final de la aplicacion
 FROM openjdk:17-jdk-alpine
-ENV PROFILE=dev
+ENV PROFILE=prod
 WORKDIR /app
 COPY --from=build /app/target/ /app/
 RUN cp /app/backend-0.0.1-SNAPSHOT.jar /app/app.jar
