@@ -7,6 +7,7 @@ import NuevaTarea from './pages/NuevaTarea';
 import TareaConfirmada from './pages/TareaConfirmada';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
+import AceptarORechazarPropuesta from './pages/AceptarORechazarPropuesta';
 import RevisionDeTareas from './pages/RevisionDeTareas';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Route path='/TareaRechazada' element={<TareaRechazada />} />
         <Route path='/nuevaTarea' element={<NuevaTarea />} />
         <Route path='/TareaConfirmada' element={<TareaConfirmada />} />
+        <Route path='/Propuesta' element={<AceptarORechazarPropuesta />} />
         <Route path='/RevisionDeTareas' element={<RevisionDeTareas />} />
       </Routes>
       <Footer />
