@@ -8,9 +8,7 @@ import {
 } from '@/components/ui/accordion';
 import HomeRegister from '@/components/HomeRegister';
 import HomeLogin from '@/components/HomeLogin';
-import NavBar from '@/components/NavBar';
 import { useModalStore } from '../store/modalStore';
-import Footer from '@/components/Footer';
 
 const HomePage = () => {
   const { mostrarRegister, mostrarLogin, handleCloseModal } = useModalStore();
@@ -18,7 +16,6 @@ const HomePage = () => {
   return (
     <main className=''>
       {/* Section Carousel */}
-      <NavBar />
       <section className=''>
         <HomeCarousel />
       </section>
@@ -69,7 +66,6 @@ const HomePage = () => {
       {/* Renderizar el modal */}
       <HomeRegister mostrar={mostrarRegister} onClose={handleCloseModal} />
       <HomeLogin mostrar={mostrarLogin} onClose={handleCloseModal} />
-      <Footer />
     </main>
   );
 };
