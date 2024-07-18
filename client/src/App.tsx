@@ -9,6 +9,7 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import AceptarORechazarPropuesta from './pages/AceptarORechazarPropuesta';
 import RevisionDeTareas from './pages/RevisionDeTareas';
+
 export default function App() {
   return (
     <>
