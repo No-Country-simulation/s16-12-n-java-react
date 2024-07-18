@@ -15,6 +15,7 @@ const HomePage = () => {
 
   return (
     <main className=''>
+      {/* Section Carousel */}
       <section className=''>
         <HomeCarousel />
       </section>
