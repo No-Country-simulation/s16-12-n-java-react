@@ -9,6 +9,7 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import AceptarORechazarPropuesta from './pages/AceptarORechazarPropuesta';
 import RevisionDeTareas from './pages/RevisionDeTareas';
+import UserProfile from './pages/UserProfile';
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route path='/TareaConfirmada' element={<TareaConfirmada />} />
         <Route path='/Propuesta' element={<AceptarORechazarPropuesta />} />
         <Route path='/RevisionDeTareas' element={<RevisionDeTareas />} />
+        <Route path='/user-profile' element={<UserProfile />} />
       </Routes>
       <Footer />
     </>
