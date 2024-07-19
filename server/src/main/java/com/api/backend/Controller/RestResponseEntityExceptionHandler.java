@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import com.api.backend.DTO.Error.ErrorResponseDto;
 import com.api.backend.Exception.EmailOrPasswordIncorrectException;
-import com.api.backend.entities.DTO.Error.ErrorResponseDto;
 
 
 

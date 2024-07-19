@@ -1,75 +1,72 @@
 package com.api.backend.Services.impl;
 
+import com.api.backend.DTO.Tarea.TareaDTO;
+import com.api.backend.DTO.Tarea.TareaResponseDTO;
 import com.api.backend.Exception.ResourceNotFoundException;
+import com.api.backend.Mappers.TareaMapper;
 import com.api.backend.Repository.TareaRepository;
-import com.api.backend.Repository.UsuarioRepository;
 import com.api.backend.Services.TareaService;
-import com.api.backend.entities.DTO.TareaRequest;
 import com.api.backend.entities.Tarea;
 import com.api.backend.entities.Usuario;
 import com.api.backend.entities.enums.EstadoTarea;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
-import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
+@RequiredArgsConstructor
 public class TareaServiceImpl implements TareaService {
 
-    @Autowired
-    TareaRepository tareaRepository;
-    @Autowired
-    UsuarioRepository userRepository;
+    
+    private final TareaRepository tareaRepository;
+    private final UsuarioServiceImpl usuarioService;
+    private final TareaMapper tareaMapper;
+    
+    
 
     @Override
-    public List<Tarea> findAllTasks() {
+    public List<TareaResponseDTO> findAllTasks() {
         List<Tarea> task = tareaRepository.findAll();
-        if (task.isEmpty()) throw new ResourceNotFoundException("Tasks not found");
-        return task;
+        if (task.isEmpty()) throw new ResourceNotFoundException("No hay tareas");
+        return task.stream().map(tareaMapper::toTareaDTO).toList();
     }
 
     @Override
-    public Tarea saveTasks(TareaRequest task, Long userId) {
-        Optional<Usuario> user = userRepository.findById(userId);
-        if (user.isEmpty()) throw new ResourceNotFoundException("User with id " + userId + " not found");
-        return tareaRepository.save(Tarea.builder()
-                .descripcion(task.getDescripcion())
-                .usuario((Usuario) user.get())
-                .fechaPublicacion(task.getFechaPublicacion())
-                .presupuesto(task.getPresupuesto())
-                .plazo(task.getPlazo())
-                .estadoTarea(EstadoTarea.EM_PROCESO)
-                .titulo(task.getTitulo())
-                .build());
+    public TareaResponseDTO saveTasks(TareaDTO task) {
+        Usuario user = usuarioService.getUserByEmail();
+        Tarea tarea = tareaMapper.toTarea(task);
+        tarea.setContratador(user);
+        tarea.setFechaPublicacion(LocalDate.now());
+        return tareaMapper.toTareaDTO(tareaRepository.save(tarea));
     }
 
     @Override
-    public Tarea deleteTasksById(Long id) {
+    @Transactional
+    public void deleteTasksById(Long id) {
         Tarea tarea = tareaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
-        tareaRepository.delete(tarea);
-        return tarea;
+        tarea.setStatus(Boolean.FALSE);
+        tarea.setEstadoTarea(EstadoTarea.CANCELADA);
+        
     }
 
-    @Override
-    public Tarea deleteTarea(Tarea task) {
-        return null;
-    }
 
     @Override
-    public Tarea updateTask(TareaRequest taskRequest, Long id) {
-        Tarea existingTarea = tareaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
+    @Transactional
+    public TareaResponseDTO updateTask(TareaDTO taskRequest) {
+        Tarea existingTarea = tareaRepository.findById(taskRequest.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Task with id " + taskRequest.getId() + " not found"));
 
-        EstadoTarea estadoTarea = EstadoTarea.valueOf(taskRequest.getEstadoTarea());
         existingTarea.setDescripcion(taskRequest.getDescripcion());
-        existingTarea.setFechaPublicacion(taskRequest.getFechaPublicacion());
         existingTarea.setPresupuesto(taskRequest.getPresupuesto());
         existingTarea.setPlazo(taskRequest.getPlazo());
-        existingTarea.setEstadoTarea(estadoTarea);
-        return tareaRepository.save(existingTarea);
+        return tareaMapper.toTareaDTO(existingTarea);
     }
+
 }

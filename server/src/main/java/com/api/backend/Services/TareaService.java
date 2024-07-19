@@ -1,19 +1,16 @@
 package com.api.backend.Services;
 
-import com.api.backend.entities.DTO.TareaRequest;
-import com.api.backend.entities.Tarea;
-
+import com.api.backend.DTO.Tarea.TareaDTO;
+import com.api.backend.DTO.Tarea.TareaResponseDTO;
 
 import java.util.List;
 
 public interface TareaService {
-    List<Tarea> findAllTasks();
+    List<TareaResponseDTO> findAllTasks();
 
-    Tarea saveTasks(TareaRequest task, Long userId);
+    TareaResponseDTO saveTasks(TareaDTO task);
 
-    Tarea deleteTasksById(Long id);
+    void deleteTasksById(Long id);
 
-    Tarea deleteTarea(Tarea task);
-
-    Tarea updateTask(TareaRequest task,Long id);
+    TareaResponseDTO updateTask(TareaDTO task);
 }

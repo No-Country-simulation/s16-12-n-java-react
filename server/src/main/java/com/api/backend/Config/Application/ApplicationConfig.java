@@ -17,6 +17,7 @@ import com.api.backend.Repository.UsuarioRepository;
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
+
     private final UsuarioRepository userRepository;
 
     @Bean

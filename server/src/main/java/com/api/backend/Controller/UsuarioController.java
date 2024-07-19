@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.backend.DTO.Auth.AuthResponseDto;
+import com.api.backend.DTO.Auth.LoginRequestDto;
+import com.api.backend.DTO.Auth.RegisterRequestDto;
+import com.api.backend.DTO.Error.ErrorResponseDto;
 import com.api.backend.Services.impl.UsuarioServiceImpl;
-import com.api.backend.entities.DTO.Auth.AuthResponseDto;
-import com.api.backend.entities.DTO.Auth.LoginRequestDto;
-import com.api.backend.entities.DTO.Auth.RegisterRequestDto;
-import com.api.backend.entities.DTO.Error.ErrorResponseDto;
+
 import org.springframework.http.MediaType;
 
 import io.swagger.v3.oas.annotations.Operation;
