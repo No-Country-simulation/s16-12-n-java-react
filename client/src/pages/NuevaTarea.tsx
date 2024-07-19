@@ -20,7 +20,7 @@ const NuevaTarea = () => {
         </div>
         <div className='mt-4 text-left pl-32 w-11/12 '>
           <h4 className='text-xl mb-1'>Imagen</h4>
-          <div className='flex flex-row  border pl-1 text-left rounded-xl border-black h-10 relative content-center'>
+          <div className='flex flex-row  border pl-1 text-left rounded-xl border-black h-10 relative items-center'>
             <Image />
             <input
               type='text'
