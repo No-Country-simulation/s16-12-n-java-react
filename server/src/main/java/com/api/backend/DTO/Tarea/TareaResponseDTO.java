@@ -2,6 +2,7 @@ package com.api.backend.DTO.Tarea;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import com.api.backend.DTO.BaseDTO;
 import com.api.backend.DTO.Usuario.UsuarioResponseDTO;
@@ -21,7 +22,9 @@ public class TareaResponseDTO extends BaseDTO{
     LocalDate plazo;
     LocalDate fechaPublicacion;
     EstadoTarea estadoTarea;
+    String categoria;
     UsuarioResponseDTO contratador;
-    UsuarioResponseDTO freelance;    
+    UsuarioResponseDTO freelance;
+    List<String> habilidades;    
 }
 

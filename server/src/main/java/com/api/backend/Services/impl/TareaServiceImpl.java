@@ -6,6 +6,7 @@ import com.api.backend.Exception.ResourceNotFoundException;
 import com.api.backend.Mappers.TareaMapper;
 import com.api.backend.Repository.TareaRepository;
 import com.api.backend.Services.TareaService;
+import com.api.backend.entities.Habilidad;
 import com.api.backend.entities.Tarea;
 import com.api.backend.entities.Usuario;
 import com.api.backend.entities.enums.EstadoTarea;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,6 +28,8 @@ public class TareaServiceImpl implements TareaService {
     
     private final TareaRepository tareaRepository;
     private final UsuarioServiceImpl usuarioService;
+    private final HabilidadServiceImpl habilidadService;
+    private final CategoriaServiceImpl categoriaService;
     private final TareaMapper tareaMapper;
     
     
@@ -44,6 +48,12 @@ public class TareaServiceImpl implements TareaService {
         tarea.setContratador(user);
         tarea.setFechaPublicacion(LocalDate.now());
         tarea.setEstadoTarea(EstadoTarea.PUBLICADA);
+        tarea.setCategoria(categoriaService.findCategoriaByName(task.getNombreCategoria()));
+        tarea.setHabilidades(task
+                            .getNombreHabilidades()
+                            .stream()
+                            .map(habilidadService :: findByName)
+                            .toList());
         return tareaMapper.toTareaDTO(tareaRepository.save(tarea));
     }
 
@@ -67,6 +77,12 @@ public class TareaServiceImpl implements TareaService {
         existingTarea.setDescripcion(taskRequest.getDescripcion());
         existingTarea.setPresupuesto(taskRequest.getPresupuesto());
         existingTarea.setPlazo(taskRequest.getPlazo());
+        existingTarea.setHabilidades(taskRequest
+        .getNombreHabilidades()
+        .stream()
+        .map(habilidadService:: findByName)
+        .toList());
+        existingTarea.setCategoria(categoriaService.findCategoriaByName(taskRequest.getNombreCategoria()));
         return tareaMapper.toTareaDTO(existingTarea);
     }
 

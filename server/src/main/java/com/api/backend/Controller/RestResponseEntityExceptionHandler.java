@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import com.api.backend.DTO.Error.ErrorResponseDto;
+import com.api.backend.Exception.CategoryNotFoundExcepcion;
 import com.api.backend.Exception.EmailOrPasswordIncorrectException;
+import com.api.backend.Exception.HabilidadNotFoundExcepcion;
 import com.api.backend.Exception.ResourceNotFoundException;
 
 
@@ -30,6 +32,16 @@ public class RestResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Object> handlerResourceNotFoundException(ResourceNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CategoryNotFoundExcepcion.class)
+    public ResponseEntity<Object> handlerCategoryNotFoundExcepcion(CategoryNotFoundExcepcion ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(HabilidadNotFoundExcepcion.class)
+    public ResponseEntity<Object> handlerHabilidadNotFoundExcepcion(HabilidadNotFoundExcepcion ex) {
         return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
     }
 

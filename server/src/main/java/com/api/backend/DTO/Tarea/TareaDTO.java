@@ -5,8 +5,10 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import com.api.backend.DTO.BaseDTO;
+
 
 
 /**
@@ -25,9 +27,15 @@ public class TareaDTO extends BaseDTO{
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than zero")
     BigDecimal presupuesto;
     @NotBlank
+    @Size(max = 100, message = "Title must be less than 100 characters")
     String imagenUrl;
     @NotNull
     @FutureOrPresent(message = "Plazo can´t be in past")
     LocalDate plazo;
+    @NotBlank
+    @Size(max = 50, message = "Title must be less than 100 characters")
+    String nombreCategoria;
+    @NotNull
+    List<String> nombreHabilidades;
        
 }
