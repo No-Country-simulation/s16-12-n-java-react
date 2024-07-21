@@ -16,4 +16,6 @@ public interface TareaService {
     void deleteTasksById(Long id);
 
     TareaResponseDTO updateTask(TareaUpdateDTO task, Long id);
+
+    TareaResponseDTO findTaskById(Long id);
 }

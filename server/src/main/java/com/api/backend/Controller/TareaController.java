@@ -23,8 +23,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("api/v1/tareas")
 @RequiredArgsConstructor
@@ -175,5 +173,39 @@ public class TareaController {
     public ResponseEntity  <Page<TareaResponseDTO>> findAllTareas(Pageable pageable) {
         Page<TareaResponseDTO> tareas = tareaService.findAllTasks(pageable);
         return ResponseEntity.ok().body(tareas);
+    }
+
+
+    @Operation(
+        summary="Endpoint que busca todos los datos por id de una tarea ",
+        description = "Este endpoint puede ser consultado por usuarios sin registrar y sin loguear, y no requiere para su autenticación del ingreso del JWT que se obtiene al loguearse. Tambien se necesita pasar el id de la tarea a buscar por la url",
+        method = "GET",
+        responses = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "Success. En caso de éxito, se retorna los datos de la tarea",
+                        content = @Content(schema = @Schema(implementation = TareaResponseDTO.class,
+                                contentMediaType = MediaType.APPLICATION_JSON_VALUE
+                        ))
+                ),
+                @ApiResponse(
+                        responseCode = "204",
+                        description = "No Content. En caso de no encontrar la tarea",
+                        content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                        ))
+                ),
+                @ApiResponse(
+                        responseCode = "403",
+                        description = "Forbidden. en caso de  existir excepciones no controladas devuelve un error de permisos.",
+                        content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                        ))
+                )
+        }
+)
+
+    @GetMapping("findById/{id}")
+    public ResponseEntity<TareaResponseDTO> findTareaById(@PathVariable Long id) {
+        TareaResponseDTO tarea = tareaService.findTaskById(id);
+        return ResponseEntity.ok().body(tarea);
     }
 }

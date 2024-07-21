@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -76,7 +75,7 @@ public class TareaServiceImpl implements TareaService {
     @Override
     @Transactional
     public TareaResponseDTO updateTask(TareaUpdateDTO taskRequest, Long id) {
-    Tarea existingTarea = tareaRepository.findById(id)
+    Tarea existingTarea = tareaRepository.findByIdAndStatusTrue(id)
             .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
 
     Optional.ofNullable(taskRequest.getTitulo()).ifPresent(existingTarea::setTitulo);
@@ -95,6 +94,13 @@ public class TareaServiceImpl implements TareaService {
 
     return tareaMapper.toTareaDTO(existingTarea);
 }
+
+    @Override
+    public TareaResponseDTO findTaskById(Long id) {
+        tareaRepository.findByIdAndStatusTrue(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
+        return tareaMapper.toTareaDTO(tareaRepository.findByIdAndStatusTrue(id).get());
+    }
 
 
 }
