@@ -10,6 +10,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.api.backend.DTO.Error.ErrorResponseDto;
 import com.api.backend.Exception.EmailOrPasswordIncorrectException;
+import com.api.backend.Exception.ResourceNotFoundException;
 
 
 
@@ -25,6 +26,11 @@ public class RestResponseEntityExceptionHandler {
     public ResponseEntity<Object> handlerMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         var errors = ex.getFieldErrors().stream().map(ErrorResponseDto::new).toList();
         return ResponseEntity.badRequest().body(errors);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Object> handlerResourceNotFoundException(ResourceNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)

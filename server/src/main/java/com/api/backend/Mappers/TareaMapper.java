@@ -6,7 +6,8 @@ import com.api.backend.DTO.Tarea.TareaDTO;
 import com.api.backend.DTO.Tarea.TareaResponseDTO;
 import com.api.backend.entities.Tarea;
 
-@Mapper(componentModel = "spring")
+
+@Mapper(componentModel = "spring", uses = {UsuarioMapper.class})
 public interface TareaMapper{
     Tarea toTarea(TareaDTO tareaDTO);
     TareaResponseDTO toTareaDTO(Tarea tarea);

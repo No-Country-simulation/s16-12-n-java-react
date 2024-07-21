@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.api.backend.DTO.BaseDTO;
-import com.api.backend.entities.Usuario;
+import com.api.backend.DTO.Usuario.UsuarioResponseDTO;
 import com.api.backend.entities.enums.EstadoTarea;
 
 import lombok.Data;
@@ -17,11 +17,11 @@ public class TareaResponseDTO extends BaseDTO{
     String titulo;
     String descripcion;
     BigDecimal presupuesto;
-    String ImagenUrl;
+    String imagenUrl;
     LocalDate plazo;
     LocalDate fechaPublicacion;
     EstadoTarea estadoTarea;
-    Usuario contratador;
-    Usuario freelance;    
+    UsuarioResponseDTO contratador;
+    UsuarioResponseDTO freelance;    
 }
 

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.api.backend.DTO.BaseDTO;
-import com.api.backend.entities.enums.EstadoTarea;
+
 
 /**
  * DTO for {@link com.api.backend.entities.Tarea}
@@ -25,9 +25,9 @@ public class TareaDTO extends BaseDTO{
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than zero")
     BigDecimal presupuesto;
     @NotBlank
-    String ImagenUrl;
+    String imagenUrl;
     @NotNull
+    @FutureOrPresent(message = "Plazo can´t be in past")
     LocalDate plazo;
-    @NotNull
-    EstadoTarea estadoTarea;    
+       
 }

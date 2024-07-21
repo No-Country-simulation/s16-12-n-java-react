@@ -4,6 +4,7 @@ import com.api.backend.DTO.Tarea.TareaDTO;
 import com.api.backend.DTO.Tarea.TareaResponseDTO;
 import com.api.backend.Services.impl.TareaServiceImpl;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
@@ -19,14 +20,14 @@ public class TareaController {
     private final TareaServiceImpl tareaService;
 
     @PostMapping("/save")
-    public ResponseEntity<TareaResponseDTO> createTarea(@RequestBody TareaDTO tareaRequest, @RequestParam Long userId) {
+    public ResponseEntity<TareaResponseDTO> createTarea(@RequestBody @Valid TareaDTO tareaRequest) {
         TareaResponseDTO tarea = tareaService.saveTasks(tareaRequest);
         return ResponseEntity.ok().body(tarea);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<TareaResponseDTO> updateTarea(@RequestBody TareaDTO tareaRequest) {
-        TareaResponseDTO tarea = tareaService.updateTask(tareaRequest);
+    public ResponseEntity<TareaResponseDTO> updateTarea(@RequestBody TareaDTO tareaRequest, @PathVariable Long id) {
+        TareaResponseDTO tarea = tareaService.updateTask(tareaRequest, id);
         return ResponseEntity.ok().body(tarea);
     }
 

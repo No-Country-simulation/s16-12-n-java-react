@@ -32,7 +32,7 @@ public class TareaServiceImpl implements TareaService {
 
     @Override
     public List<TareaResponseDTO> findAllTasks() {
-        List<Tarea> task = tareaRepository.findAll();
+        List<Tarea> task = tareaRepository.findAllByStatusTrue();
         if (task.isEmpty()) throw new ResourceNotFoundException("No hay tareas");
         return task.stream().map(tareaMapper::toTareaDTO).toList();
     }
@@ -43,6 +43,7 @@ public class TareaServiceImpl implements TareaService {
         Tarea tarea = tareaMapper.toTarea(task);
         tarea.setContratador(user);
         tarea.setFechaPublicacion(LocalDate.now());
+        tarea.setEstadoTarea(EstadoTarea.PUBLICADA);
         return tareaMapper.toTareaDTO(tareaRepository.save(tarea));
     }
 
@@ -59,10 +60,10 @@ public class TareaServiceImpl implements TareaService {
 
     @Override
     @Transactional
-    public TareaResponseDTO updateTask(TareaDTO taskRequest) {
-        Tarea existingTarea = tareaRepository.findById(taskRequest.getId())
+    public TareaResponseDTO updateTask(TareaDTO taskRequest, Long id) {
+        Tarea existingTarea = tareaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task with id " + taskRequest.getId() + " not found"));
-
+        existingTarea.setTitulo(taskRequest.getTitulo());
         existingTarea.setDescripcion(taskRequest.getDescripcion());
         existingTarea.setPresupuesto(taskRequest.getPresupuesto());
         existingTarea.setPlazo(taskRequest.getPlazo());

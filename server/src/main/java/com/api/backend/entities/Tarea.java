@@ -19,7 +19,7 @@ public class Tarea extends BaseEntity{
     private String titulo;
     private String descripcion;
     private BigDecimal presupuesto;
-    private String ImagenUrl;
+    private String imagenUrl;
     private LocalDate plazo;
     private LocalDate fechaPublicacion;
     private EstadoTarea estadoTarea;
