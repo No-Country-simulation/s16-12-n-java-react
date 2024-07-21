@@ -1,19 +1,21 @@
 package com.api.backend.Services;
 
-import com.api.backend.entities.DTO.TareaRequest;
-import com.api.backend.entities.Tarea;
+import com.api.backend.DTO.Tarea.TareaDTO;
+import com.api.backend.DTO.Tarea.TareaResponseDTO;
+import com.api.backend.DTO.Tarea.TareaUpdateDTO;
 
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface TareaService {
-    List<Tarea> findAllTasks();
+    Page<TareaResponseDTO> findAllTasks(Pageable pageable);
 
-    Tarea saveTasks(TareaRequest task, Long userId);
+    TareaResponseDTO saveTasks(TareaDTO task);
 
-    Tarea deleteTasksById(Long id);
+    void deleteTasksById(Long id);
 
-    Tarea deleteTarea(Tarea task);
+    TareaResponseDTO updateTask(TareaUpdateDTO task, Long id);
 
-    Tarea updateTask(TareaRequest task,Long id);
+    TareaResponseDTO findTaskById(Long id);
 }

@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import com.api.backend.DTO.Error.ErrorResponseDto;
+import com.api.backend.Exception.CategoryNotFoundExcepcion;
 import com.api.backend.Exception.EmailOrPasswordIncorrectException;
-import com.api.backend.entities.DTO.Error.ErrorResponseDto;
+import com.api.backend.Exception.HabilidadNotFoundExcepcion;
+import com.api.backend.Exception.ResourceNotFoundException;
+import com.api.backend.Exception.TaskNotFoundException;
 
 
 
@@ -25,6 +29,25 @@ public class RestResponseEntityExceptionHandler {
     public ResponseEntity<Object> handlerMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         var errors = ex.getFieldErrors().stream().map(ErrorResponseDto::new).toList();
         return ResponseEntity.badRequest().body(errors);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Object> handlerResourceNotFoundException(ResourceNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<Object> handlerTaskNotFoundException(TaskNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NO_CONTENT);
+    }
+
+    @ExceptionHandler(CategoryNotFoundExcepcion.class)
+    public ResponseEntity<Object> handlerCategoryNotFoundExcepcion(CategoryNotFoundExcepcion ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(HabilidadNotFoundExcepcion.class)
+    public ResponseEntity<Object> handlerHabilidadNotFoundExcepcion(HabilidadNotFoundExcepcion ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)

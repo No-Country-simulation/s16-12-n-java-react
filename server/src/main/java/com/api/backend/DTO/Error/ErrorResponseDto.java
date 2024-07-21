@@ -1,4 +1,4 @@
-package com.api.backend.entities.DTO.Error;
+package com.api.backend.DTO.Error;
 
 import org.springframework.validation.FieldError;
 

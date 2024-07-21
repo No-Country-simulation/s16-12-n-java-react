@@ -1,4 +1,4 @@
-package com.api.backend.entities.DTO.Auth;
+package com.api.backend.DTO.Auth;
 
 public record AuthResponseDto(String token) {
 

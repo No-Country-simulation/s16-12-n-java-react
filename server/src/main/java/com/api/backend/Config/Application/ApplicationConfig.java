@@ -17,7 +17,9 @@ import com.api.backend.Repository.UsuarioRepository;
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
+
     private final UsuarioRepository userRepository;
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {

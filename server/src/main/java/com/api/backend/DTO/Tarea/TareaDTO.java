@@ -1,21 +1,22 @@
-package com.api.backend.entities.DTO;
+package com.api.backend.DTO.Tarea;
 
-import com.api.backend.entities.enums.EstadoTarea;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
+
+
+
 
 /**
  * DTO for {@link com.api.backend.entities.Tarea}
  */
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class TareaRequest {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class TareaDTO{
+
     @NotBlank(message = "Title can´t be empty")
     @Size(max = 100, message = "Title must be less than 100 characters")
     String titulo;
@@ -24,9 +25,15 @@ public class TareaRequest {
     @NotNull(message = "Price is mandatory")
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than zero")
     BigDecimal presupuesto;
-    Date plazo;
+    @NotBlank
+    @Size(max = 100, message = "Title must be less than 100 characters")
+    String imagenUrl;
     @NotNull
-    Date fechaPublicacion;
-    @NotNull
-    String estadoTarea;
+    @FutureOrPresent(message = "Plazo can´t be in past")
+    LocalDate plazo;
+    @NotBlank
+    @Size(max = 50, message = "Title must be less than 100 characters")
+    String nombreCategoria;
+    List<String> nombreHabilidades;
+       
 }
