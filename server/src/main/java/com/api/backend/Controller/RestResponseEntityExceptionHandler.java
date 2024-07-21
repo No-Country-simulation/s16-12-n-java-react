@@ -13,6 +13,7 @@ import com.api.backend.Exception.CategoryNotFoundExcepcion;
 import com.api.backend.Exception.EmailOrPasswordIncorrectException;
 import com.api.backend.Exception.HabilidadNotFoundExcepcion;
 import com.api.backend.Exception.ResourceNotFoundException;
+import com.api.backend.Exception.TaskNotFoundException;
 
 
 
@@ -33,6 +34,10 @@ public class RestResponseEntityExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Object> handlerResourceNotFoundException(ResourceNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<Object> handlerTaskNotFoundException(TaskNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NO_CONTENT);
     }
 
     @ExceptionHandler(CategoryNotFoundExcepcion.class)

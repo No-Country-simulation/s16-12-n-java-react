@@ -2,23 +2,28 @@ package com.api.backend.Services.impl;
 
 import com.api.backend.DTO.Tarea.TareaDTO;
 import com.api.backend.DTO.Tarea.TareaResponseDTO;
+import com.api.backend.DTO.Tarea.TareaUpdateDTO;
 import com.api.backend.Exception.ResourceNotFoundException;
+import com.api.backend.Exception.TaskNotFoundException;
 import com.api.backend.Mappers.TareaMapper;
 import com.api.backend.Repository.TareaRepository;
 import com.api.backend.Services.TareaService;
-import com.api.backend.entities.Habilidad;
 import com.api.backend.entities.Tarea;
 import com.api.backend.entities.Usuario;
 import com.api.backend.entities.enums.EstadoTarea;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -35,10 +40,10 @@ public class TareaServiceImpl implements TareaService {
     
 
     @Override
-    public List<TareaResponseDTO> findAllTasks() {
-        List<Tarea> task = tareaRepository.findAllByStatusTrue();
-        if (task.isEmpty()) throw new ResourceNotFoundException("No hay tareas");
-        return task.stream().map(tareaMapper::toTareaDTO).toList();
+    public Page<TareaResponseDTO> findAllTasks(Pageable pageable) {
+        Page<Tarea> task = tareaRepository.findAllByStatusTrue(pageable);
+        if (task.isEmpty()) throw new TaskNotFoundException("No hay tareas");
+        return task.map(tareaMapper::toTareaDTO);
     }
 
     @Override
@@ -70,20 +75,26 @@ public class TareaServiceImpl implements TareaService {
 
     @Override
     @Transactional
-    public TareaResponseDTO updateTask(TareaDTO taskRequest, Long id) {
-        Tarea existingTarea = tareaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Task with id " + taskRequest.getId() + " not found"));
-        existingTarea.setTitulo(taskRequest.getTitulo());
-        existingTarea.setDescripcion(taskRequest.getDescripcion());
-        existingTarea.setPresupuesto(taskRequest.getPresupuesto());
-        existingTarea.setPlazo(taskRequest.getPlazo());
-        existingTarea.setHabilidades(taskRequest
-        .getNombreHabilidades()
-        .stream()
-        .map(habilidadService:: findByName)
-        .toList());
-        existingTarea.setCategoria(categoriaService.findCategoriaByName(taskRequest.getNombreCategoria()));
-        return tareaMapper.toTareaDTO(existingTarea);
-    }
+    public TareaResponseDTO updateTask(TareaUpdateDTO taskRequest, Long id) {
+    Tarea existingTarea = tareaRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
+
+    Optional.ofNullable(taskRequest.getTitulo()).ifPresent(existingTarea::setTitulo);
+    Optional.ofNullable(taskRequest.getDescripcion()).ifPresent(existingTarea::setDescripcion);
+    Optional.ofNullable(taskRequest.getPresupuesto()).ifPresent(existingTarea::setPresupuesto);
+    Optional.ofNullable(taskRequest.getPlazo()).ifPresent(existingTarea::setPlazo);
+    Optional.ofNullable(taskRequest.getNombreHabilidades()).ifPresent(nombresHabilidades ->
+        existingTarea.setHabilidades(nombresHabilidades.stream()
+                .map(habilidadService::findByName)
+                .collect(Collectors.toList()))
+    );
+    Optional.ofNullable(taskRequest.getNombreCategoria()).ifPresent(nombreCategoria ->
+        existingTarea.setCategoria(categoriaService.findCategoriaByName(nombreCategoria))
+    );
+  
+
+    return tareaMapper.toTareaDTO(existingTarea);
+}
+
 
 }
