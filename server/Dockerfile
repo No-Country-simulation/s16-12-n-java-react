@@ -8,7 +8,7 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-jdk-alpine
 ENV PROFILE=prod
 WORKDIR /app
-COPY --from=build /app/target/ /app/
+COPY --from=build /app/target/*.jar /app/
 RUN cp /app/backend-0.0.1-SNAPSHOT.jar /app/app.jar
 
 EXPOSE 8080
