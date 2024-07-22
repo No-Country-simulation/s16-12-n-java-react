@@ -45,6 +45,7 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'consistent-return': 'off',
     'react/jsx-no-constructed-context-values': 'off',
-    'object-shorthand': 'off'
+    'object-shorthand': 'off',
+    '@typescript-eslint/no-explicit-any': 'off'
   },
 }

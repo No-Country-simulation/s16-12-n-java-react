@@ -1,25 +1,9 @@
-import React from 'react';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
 
-interface HomeRegisterProps {
-  mostrar: boolean;
-  onClose: () => void;
-}
-
-const HomeRegister: React.FC<HomeRegisterProps> = ({ mostrar, onClose }) => {
-  const handleClickOutside = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.target === event.currentTarget) onClose();
-  };
-
-  if (!mostrar) return null;
-
+const Register = () => {
   return (
     // eslint-disable-next-line jsx-a11y/interactive-supports-focus, jsx-a11y/click-events-have-key-events
-    <div
-      className='fixed top-0 left-0 w-full h-full flex justify-center bg-black bg-opacity-50 text-center items-center'
-      onClick={handleClickOutside}
-      role='button'
-    >
+    <div className='top-0 left-0 w-full h-full flex justify-center text-center items-center'>
       <div className='bg-white rounded-lg px-20 py-14 md:w-1/4 m-8'>
         <h2 className='text-2xl font-bold mb-4'>REGISTRO</h2>
         <p className='text-gray-700 mb-4'>
@@ -57,4 +41,4 @@ const HomeRegister: React.FC<HomeRegisterProps> = ({ mostrar, onClose }) => {
   );
 };
 
-export default HomeRegister;
+export default Register;

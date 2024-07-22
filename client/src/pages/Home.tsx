@@ -1,18 +1,13 @@
 import { HomeCarousel } from '@/components/HomeCarousel';
-import { Cards } from '@/components/HomeCards';
+import { TaskCard } from '@/components/TaskCard';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import HomeRegister from '@/components/HomeRegister';
-import HomeLogin from '@/components/HomeLogin';
-import { useModalStore } from '../store/modalStore';
 
-const HomePage = () => {
-  const { mostrarRegister, mostrarLogin, handleCloseModal } = useModalStore();
-
+const Home = () => {
   return (
     <main className=''>
       {/* Section Carousel */}
@@ -22,7 +17,7 @@ const HomePage = () => {
 
       {/* Section Sugerencias */}
       <section className='grid md:grid-cols-3 sm:grid-cols-2 gap-8 max-w-7xl mx-auto md:px-4 px-8 my-10'>
-        <Cards />
+        <TaskCard />
       </section>
 
       {/* Section Categories */}
@@ -62,12 +57,8 @@ const HomePage = () => {
           </Accordion>
         </div>
       </section>
-
-      {/* Renderizar el modal */}
-      <HomeRegister mostrar={mostrarRegister} onClose={handleCloseModal} />
-      <HomeLogin mostrar={mostrarLogin} onClose={handleCloseModal} />
     </main>
   );
 };
 
-export default HomePage;
+export default Home;
