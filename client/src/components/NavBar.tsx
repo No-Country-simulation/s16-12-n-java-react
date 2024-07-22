@@ -1,15 +1,18 @@
-import { FunctionComponent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import logo from '../assets/Logo.jpeg';
 import { Button } from '@/components/ui/button';
-import { useModalStore } from '../store/modalStore';
+import useAuthStore from '@/store/authStore';
 
-interface INavBarProps {}
+const NavBar = () => {
+  const { logout, isAuthenticated } = useAuthStore();
+  const navigate = useNavigate();
 
-const NavBar: FunctionComponent<INavBarProps> = () => {
-  const setMostrarRegister = useModalStore((state) => state.setMostrarRegister);
-  const setMostrarLogin = useModalStore((state) => state.setMostrarLogin);
-
+  const handleLogout = () => {
+    logout();
+    toast.success('Sesión cerrada exitosamente');
+    navigate('/auth/login');
+  };
   return (
     <nav className='flex items-center justify-between p-4 bg-white shadow-md'>
       <div className='flex items-center space-x-4'>
@@ -22,18 +25,20 @@ const NavBar: FunctionComponent<INavBarProps> = () => {
         <Link to='/about' className='text-gray-800 hover:text-gray-600'>
           Nosotros
         </Link>
-        <Button
-          className='px-4 py-2 text-gray-800 border border-gray-800 rounded bg-gray-100 hover:bg-gray-100'
-          onClick={() => setMostrarRegister(true)}
-        >
-          Registrar
-        </Button>
-        <Button
-          className='px-4 py-2 text-white bg-gray-800 rounded hover:bg-gray-600'
-          onClick={() => setMostrarLogin(true)}
-        >
-          Login
-        </Button>
+        {isAuthenticated() ? (
+          <Button onClick={handleLogout} asChild className='bg-[#2C3E50]'>
+            Logout
+          </Button>
+        ) : (
+          <div>
+            <Button asChild className='bg-[#2C3E50]'>
+              <Link to='/auth/register'>Register</Link>
+            </Button>
+            <Button asChild className='bg-[#2C3E50]'>
+              <Link to='/auth/login'>Login</Link>
+            </Button>
+          </div>
+        )}
       </div>
     </nav>
   );

@@ -2,6 +2,7 @@ export interface UserData {
   email: string;
   contrasena: string;
   nombre: string;
+  confirmPassword: string;
 }
 
 export interface TaskData {

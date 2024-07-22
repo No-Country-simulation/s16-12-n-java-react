@@ -46,6 +46,7 @@ module.exports = {
     'consistent-return': 'off',
     'react/jsx-no-constructed-context-values': 'off',
     'object-shorthand': 'off',
-    '@typescript-eslint/no-explicit-any': 'off'
+    '@typescript-eslint/no-explicit-any': 'off',
+    "no-useless-escape": "off"
   },
 }
