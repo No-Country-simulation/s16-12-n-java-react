@@ -7,6 +7,7 @@ import useAuthStore from '@/store/authStore';
 const NavBar = () => {
   const { logout, isAuthenticated } = useAuthStore();
   const navigate = useNavigate();
+  console.log(isAuthenticated())
 
   const handleLogout = () => {
     logout();
@@ -26,7 +27,7 @@ const NavBar = () => {
           Nosotros
         </Link>
         {isAuthenticated() ? (
-          <Button onClick={handleLogout} asChild className='bg-[#2C3E50]'>
+          <Button onClick={handleLogout} className='bg-[#2C3E50]'>
             Logout
           </Button>
         ) : (
