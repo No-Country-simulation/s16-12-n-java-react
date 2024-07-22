@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Button } from './ui/button';
+import { ModalDetailTask } from './ModalDetailTask';
 
 interface CardData {
   imagen: string;
@@ -14,7 +14,7 @@ interface CardData {
   subtitle: string;
 }
 
-export function Cards() {
+export function TaskCard() {
   const [cards, setCards] = useState<CardData[]>([]);
 
   useEffect(() => {
@@ -50,8 +50,7 @@ export function Cards() {
             <CardDescription>{card.subtitle}</CardDescription>
           </CardHeader>
           <CardContent className='flex gap-2'>
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
+            <ModalDetailTask />
           </CardContent>
         </Card>
       ))}
