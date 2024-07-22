@@ -15,11 +15,6 @@ const Home = () => {
         <HomeCarousel />
       </section>
 
-      {/* Section Sugerencias */}
-      <section className='grid md:grid-cols-3 sm:grid-cols-2 gap-8 max-w-7xl mx-auto md:px-4 px-8 my-10'>
-        <TaskCard />
-      </section>
-
       {/* Section Categories */}
       <section className='max-w-7xl mx-auto md:px-4 px-8 my-10'>
         <h2 className='scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0'>
@@ -56,6 +51,11 @@ const Home = () => {
             </AccordionItem>
           </Accordion>
         </div>
+      </section>
+
+      {/* Section Sugerencias */}
+      <section className='grid md:grid-cols-3 sm:grid-cols-2 gap-8 max-w-7xl mx-auto md:px-4 px-8 my-10'>
+        <TaskCard />
       </section>
     </main>
   );
