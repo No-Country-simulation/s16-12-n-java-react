@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { FullWithLayout } from '../hocs/layouts/FullWithLayout';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
-// import useAuthStore from '../store/authStore';
+import useAuthStore from '../store/authStore';
 import { AuthLayout } from '../hocs/layouts/AuthLayout';
 import Dashboard from '@/pages/Dashboard';
 import Tasks from '@/pages/Tasks';
@@ -16,8 +16,7 @@ import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 
 export const AppRouter = () => {
-  // const { isAuthenticated } = useAuthStore();
-  const isAuthenticated = true;
+  const { isAuthenticated } = useAuthStore();
   return (
     <Routes>
       <Route path='/' element={<FullWithLayout />}>
@@ -67,7 +66,9 @@ export const AppRouter = () => {
       </Route>
       <Route
         path='/auth'
-        element={isAuthenticated ? <Navigate to='/' replace /> : <AuthLayout />}
+        element={
+          isAuthenticated() ? <Navigate to='/' replace /> : <AuthLayout />
+        }
       >
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
