@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
-  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -36,22 +36,22 @@ export function TaskCard() {
   return (
     <>
       {cards.map((card, index) => (
-        <Card key={index}>
-          <CardHeader>
-            <div className='flex justify-center items-center w-full h-28'>
+        <Card key={index} className=''>
+          <CardHeader className='p-0'>
+            <div className='flex justify-center items-center w-full h-[200px] overflow-hidden'>
               <img
                 src={card.imagen}
                 alt={card.title}
-                className='object-fill w-full h-full'
+                className='w-full object-cover'
               />
             </div>
-
-            <CardTitle>{card.title}</CardTitle>
-            <CardDescription>{card.subtitle}</CardDescription>
           </CardHeader>
-          <CardContent className='flex gap-2'>
-            <ModalDetailTask />
+          <CardContent className='flex mt-4'>
+            <CardTitle className='text-[#2C3E50]'>{card.title}</CardTitle>
           </CardContent>
+          <CardFooter>
+            <ModalDetailTask />
+          </CardFooter>
         </Card>
       ))}
     </>
