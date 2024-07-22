@@ -1,6 +1,5 @@
 package com.api.backend.Services.impl;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -36,7 +35,7 @@ public class UsuarioServiceImpl implements UsuarioService{
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public AuthResponseDto login(@Valid @NotNull LoginRequestDto loginRequestDto) {
+    public AuthResponseDto login(@Valid LoginRequestDto loginRequestDto) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequestDto.email(), loginRequestDto.contrasena())

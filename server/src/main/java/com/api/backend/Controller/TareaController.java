@@ -139,7 +139,7 @@ public class TareaController {
 
     @Operation(
         summary="Endpoint que retorna todos los datos de todas las tareas ",
-        description = "Este endpoint solo puede ser consultado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse. Tambien se necesita pasar el id de la tarea a editar por la url",
+        description = "Este endpoint se puede consultar sin necesidad de autenticarse.",
         method = "GET",
         responses = {
                 @ApiResponse(
