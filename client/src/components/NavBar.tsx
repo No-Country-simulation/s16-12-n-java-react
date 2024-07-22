@@ -7,7 +7,6 @@ import useAuthStore from '@/store/authStore';
 const NavBar = () => {
   const { logout, isAuthenticated } = useAuthStore();
   const navigate = useNavigate();
-  console.log(isAuthenticated())
 
   const handleLogout = () => {
     logout();
