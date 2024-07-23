@@ -1,9 +1,7 @@
 Etapa 1: Construcción de la aplicación
 FROM maven:3.8.4-openjdk-17-slim AS build
 WORKDIR /app
-Copiar solo los archivos necesarios para la construcción de Maven
-COPY pom.xml .
-COPY src ./src
+COPY . .
 RUN mvn clean package -DskipTests
 
 Etapa 2: Crear la imagen final de la aplicación
