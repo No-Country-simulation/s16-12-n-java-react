@@ -12,7 +12,6 @@ import com.api.backend.entities.Categoria;
 import com.api.backend.entities.Habilidad;
 import com.api.backend.entities.Tarea;
 
-
 @Mapper(componentModel = "spring", uses = {UsuarioMapper.class, HabilidadMapper.class, CategoriaMapper.class})
 public interface TareaMapper{
     Tarea toTarea(TareaDTO tareaDTO);
