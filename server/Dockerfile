@@ -9,7 +9,7 @@ FROM openjdk:17-jdk-alpine
 ENV PROFILE=dev
 WORKDIR /app
 COPY --from=build /app/target/ /app/
-RUN cp /app/my-app-0.0.1-SNAPSHOT.jar /app/app.jar
+RUN cp /app/backend-0.0.1-SNAPSHOT.jar /app/app.jar
 
 EXPOSE 8080
 CMD ["java", "-Dspring.profiles.active=${PROFILE}", "-jar", "/app/app.jar"]
