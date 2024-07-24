@@ -1,6 +1,5 @@
 import { CardContainer } from '@/components/CardContainer';
 import { HomeCarousel } from '@/components/HomeCarousel';
-import { TaskCard } from '@/components/TaskCard';
 import {
   Accordion,
   AccordionContent,

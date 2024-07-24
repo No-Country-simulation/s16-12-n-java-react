@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { IoIosSearch } from 'react-icons/io';
+import { Label } from '@radix-ui/react-label';
+import { Search } from 'lucide-react';
+import { Input } from '@/components/ui/input'; // Ajusta la ruta según corresponda
 
 const SearchBar: React.FC = () => {
   const [query, setQuery] = useState('');
@@ -15,15 +17,22 @@ const SearchBar: React.FC = () => {
 
   return (
     <div className='flex items-center bg-white rounded-lg shadow-md p-2 h-10'>
-      <input
+      <Label htmlFor='search' className='text-start'>
+        Buscar tareas
+      </Label>
+      <Input
+        id='search'
         type='text'
         placeholder='Buscar tareas'
         value={query}
         onChange={handleInputChange}
-        className='bg-transparent outline-none font-semibold text-gray-700 px-2 flex-grow'
+        className='bg-transparent outline-none border-none font-semibold text-gray-700 px-2 flex-grow focus-visible:outline-none focus-visible:ring-transparent focus-visible:ring-offset-0 focus-visible:border-none'
       />
-      <button onClick={handleSearch} className='p-2 focus:outline-none'>
-        <IoIosSearch className='w-5 h-5 text-palette_primary' />
+      <button
+        onClick={handleSearch}
+        className='p-2 focus:outline-none focus:ring-0 focus:border-transparent'
+      >
+        <Search className='w-5 h-5 text-palette_primary' />
       </button>
     </div>
   );
