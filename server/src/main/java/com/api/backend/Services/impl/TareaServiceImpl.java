@@ -4,6 +4,7 @@ import com.api.backend.DTO.Tarea.TareaDTO;
 import com.api.backend.DTO.Tarea.TareaResponseDTO;
 import com.api.backend.DTO.Tarea.TareaUpdateDTO;
 import com.api.backend.Exception.ResourceNotFoundException;
+import com.api.backend.Exception.TaskInProgressException;
 import com.api.backend.Exception.TaskNotFoundException;
 import com.api.backend.Mappers.TareaMapper;
 import com.api.backend.Repository.TareaRepository;
@@ -77,6 +78,9 @@ public class TareaServiceImpl implements TareaService {
     public TareaResponseDTO updateTask(TareaUpdateDTO taskRequest, Long id) {
     Tarea existingTarea = tareaRepository.findByIdAndStatusTrue(id)
             .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
+    if(existingTarea.getEstadoTarea() == EstadoTarea.EN_PROCESO){
+        throw new TaskInProgressException("No se puede editar, La tarea ya esta en progreso");
+    }
 
     Optional.ofNullable(taskRequest.getTitulo()).ifPresent(existingTarea::setTitulo);
     Optional.ofNullable(taskRequest.getDescripcion()).ifPresent(existingTarea::setDescripcion);
