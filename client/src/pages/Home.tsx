@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { CardContainer } from '@/components/CardContainer';
 import { HomeCarousel } from '@/components/HomeCarousel';
 import {
   Accordion,
@@ -8,9 +7,10 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import useTaskStore from '@/store/taskStore';
+import { TaskCard } from '@/components/TaskCard';
 
 const Home = () => {
-  const { fetchAllTasks, allTasks, isLoading } = useTaskStore();
+  const { fetchAllTasks, allTasks } = useTaskStore();
 
   useEffect(() => {
     fetchAllTasks();
@@ -62,8 +62,10 @@ const Home = () => {
       </section>
 
       {/* Section Sugerencias */}
-      <section className='w-9/12 mx-auto'>
-        <CardContainer />
+      <section className='grid md:grid-cols-3 sm:grid-cols-2 gap-8 max-w-7xl mx-auto md:px-4 px-8 my-10'>
+        {allTasks.content?.map((task) => (
+          <TaskCard key={task.id} task={task} />
+        ))}
       </section>
     </main>
   );
