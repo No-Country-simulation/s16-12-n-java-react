@@ -1,7 +1,5 @@
 const ApplicationCard = () => {
-  return (
-    <div>ApplicationCard</div>
-  )
-}
+  return <div>ApplicationCard</div>;
+};
 
-export default ApplicationCard
+export default ApplicationCard;

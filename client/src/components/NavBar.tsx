@@ -35,7 +35,10 @@ const NavBar = () => {
               <Link to='/tareas' className='hover:text-gray-600'>
                 Mis Tareas
               </Link>
-              <Button onClick={handleLogout} className='bg-palette_secondary text-palette_white font-bold'>
+              <Button
+                onClick={handleLogout}
+                className='bg-palette_secondary text-palette_white font-bold'
+              >
                 Logout
               </Button>
             </div>
@@ -47,10 +50,16 @@ const NavBar = () => {
               <Link to='/about' className='hover:text-gray-600'>
                 Nosotros
               </Link>
-              <Button asChild className='bg-palette_secondary text-palette_white font-bold'>
+              <Button
+                asChild
+                className='bg-palette_secondary text-palette_white font-bold'
+              >
                 <Link to='/auth/login'>Login</Link>
               </Button>
-              <Button asChild className='bg-palette_white text-palette_dark font-bold hover:text-white'>
+              <Button
+                asChild
+                className='bg-palette_white text-palette_dark font-bold hover:text-white'
+              >
                 <Link to='/auth/register'>Registrar</Link>
               </Button>
             </div>

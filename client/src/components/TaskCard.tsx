@@ -39,4 +39,3 @@ export const TaskCard: React.FC<TaskCardProps> = ({ card }) => {
     </Card>
   );
 };
-

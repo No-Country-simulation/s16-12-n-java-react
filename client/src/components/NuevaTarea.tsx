@@ -59,4 +59,3 @@ const NuevaTarea = () => {
 };
 
 export default NuevaTarea;
-
