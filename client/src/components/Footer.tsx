@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/Logo.jpeg';
+import logo from '../assets/logo.png';
 import { Button } from './ui/button';
 
 const Footer: React.FC = () => {
   return (
-    <footer className='bg-black text-white py-8'>
-      <div className='container mx-auto flex justify-between items-center'>
-        <div className='flex items-center space-x-4'>
-          <img src={logo} alt='Logo' className='h-10 w-auto' />
-          <nav className='flex flex-col space-y-2'>
+    <footer className='bg-palette_dark text-white py-8'>
+      <div className='container mx-auto flex justify-between items-center w-9/12'>
+        <div className='flex items-center space-x-8'>
+          <img src={logo} alt='Logo' className='h-5 w-auto' />
+          <nav className='flex flex-col space-y-2 font-bold'>
             <Link to='/' className='hover:text-gray-400'>
               Inicio
             </Link>
@@ -27,9 +27,9 @@ const Footer: React.FC = () => {
             <input
               type='email'
               placeholder='Escribe tu email'
-              className='px-4 py-2 rounded bg-white text-black border border-gray-400 focus:outline-none'
+              className='px-4 py-2 rounded-lg bg-white text-black border border-gray-400 focus:outline-none'
             />
-            <Button className='px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-600'>
+            <Button className='px-4 py-2 bg-palette_secondary text-white hover:bg-gray-600 font-bold'>
               Suscríbete
             </Button>
           </div>
