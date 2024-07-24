@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { HomeCarousel } from '@/components/HomeCarousel';
 import { TaskCard } from '@/components/TaskCard';
 import {
@@ -6,8 +7,15 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import useTaskStore from '@/store/taskStore';
 
 const Home = () => {
+  const { fetchAllTasks, allTasks, isLoading } = useTaskStore();
+
+  useEffect(() => {
+    fetchAllTasks();
+  }, [fetchAllTasks]);
+
   return (
     <main className=''>
       {/* Section Carousel */}
@@ -55,7 +63,9 @@ const Home = () => {
 
       {/* Section Sugerencias */}
       <section className='grid md:grid-cols-3 sm:grid-cols-2 gap-8 max-w-7xl mx-auto md:px-4 px-8 my-10'>
-        <TaskCard />
+        {allTasks.content?.map((task) => (
+          <TaskCard key={task.id} task={task} />
+        ))}
       </section>
     </main>
   );
