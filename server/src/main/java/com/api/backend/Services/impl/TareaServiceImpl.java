@@ -102,5 +102,13 @@ public class TareaServiceImpl implements TareaService {
         return tareaMapper.toTareaDTO(tareaRepository.findByIdAndStatusTrue(id).get());
     }
 
+    @Override
+    public  Page<TareaResponseDTO> findTaskByUserId(Pageable pageable) {
+        Long contratadorId =  usuarioService.getUserByEmail().getId();
+        Page<Tarea> tasks = tareaRepository.findByContratadorId(pageable, contratadorId);
+        if (tasks.isEmpty()) throw new TaskNotFoundException("No hay tareas");
+        return tasks.map(tareaMapper :: toTareaDTO);
+    }
+
 
 }
