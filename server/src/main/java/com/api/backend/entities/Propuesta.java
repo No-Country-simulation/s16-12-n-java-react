@@ -15,9 +15,6 @@ import java.time.LocalDate;
 @Setter
 @Builder
 public class Propuesta extends BaseEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(name = "descripcion", nullable = false)
     private String descripcion;

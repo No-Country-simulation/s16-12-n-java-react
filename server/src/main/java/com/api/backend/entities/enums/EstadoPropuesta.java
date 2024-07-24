@@ -4,5 +4,6 @@ public enum EstadoPropuesta {
     PENDIENTE,
     ACEPTADA,
     EN_EJECUCION,
+    CANCELADA,
     RECHAZADA
 }

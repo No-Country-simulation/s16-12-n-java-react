@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = false)
 public class PropuestaResponseDTO extends BaseDTO {
 
-    private Long id;
     private String descripcion;
     private BigDecimal presupuesto;
     private LocalDate plazo;

@@ -13,13 +13,12 @@ import com.api.backend.entities.Usuario;
 import com.api.backend.entities.enums.EstadoPropuesta;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -33,28 +32,6 @@ public class PropuestaServiceImpl implements PropuestaService {
 
     @Override
     public Page<PropuestaResponseDTO> findAllPropuestas(Pageable pageable) {
-//        List<PropuestaResponseDTO> propuestas = propuestaRepository.findAllByStatusTrue(pageable)
-//                .stream()
-//                .map(propuesta -> {
-//                    PropuestaResponseDTO propuestaResponseDTO = new PropuestaResponseDTO();
-//                    propuestaResponseDTO.setId(propuesta.getId());
-//                    propuestaResponseDTO.setDescripcion(propuesta.getDescripcion());
-//                    propuestaResponseDTO.setPresupuesto(propuesta.getPresupuesto());
-//                    propuestaResponseDTO.setPlazo(propuesta.getPlazo());
-//                    propuestaResponseDTO.setFechaEnvioPropuesta(propuesta.getFechaEnvioPropuesta());
-//                    propuestaResponseDTO.setEstado(propuesta.getEstado());
-//                    propuestaResponseDTO.setArchivoAdjunto(propuesta.getArchivoAdjunto());
-//                    propuestaResponseDTO.setTareaId(propuesta.getTarea().getId()); // Propuesta aplicada
-//                    propuestaResponseDTO.setUsuarioId(propuesta.getUsuario().getId()); // Usuario freelance que se postulo
-//                    return propuestaResponseDTO;
-//                })
-//                .collect(Collectors.toList());
-//
-//        // Get the total number of elements from the original Page
-//        int totalElements = propuestaRepository.findAllByStatusTrue().getSize();
-//
-//        // Create a new PageImpl using the converted list, pageable information, and total elements
-//        return new PageImpl<>(propuestas, pageable, totalElements);
         return null;
     }
 
@@ -100,12 +77,46 @@ public class PropuestaServiceImpl implements PropuestaService {
 
     @Override
     public void deletePropuestaById(Long id) {
-
+        // 1. Buscar Propuesta por id
+        Propuesta propuesta = propuestaRepository.findByIdAndStatusTrue(id).orElseThrow(() -> new RuntimeException("Propuesta no encontrada"));
+        Usuario usuario = usuarioRepository.getReferenceById(usuarioService.getUserByEmail().getId());
+        // 2. Eliminar la propuesta
+        if (!propuesta.getUsuario().equals(usuario)) {
+            throw new RuntimeException("No tienes permisos para eliminar esta propuesta");
+        }
+        propuesta.setStatus(false);
+        propuesta.setEstado(EstadoPropuesta.CANCELADA);
     }
 
     @Override
     public PropuestaResponseDTO updatePropuesta(PropuestaUpdateDTO propuesta, Long id) {
-        return null;
+
+        Usuario usuario = usuarioRepository.getReferenceById(usuarioService.getUserByEmail().getId());
+
+        Propuesta buscaPropuesta = propuestaRepository.findByIdAndStatusTrue(id)
+                .orElseThrow(() -> new RuntimeException("Propuesta no encontrada"));
+
+        if (buscaPropuesta.getUsuario().equals(usuario)) {
+            throw new RuntimeException("No tienes permisos para editar esta propuesta");
+        }
+
+        Optional.ofNullable(propuesta.getArchivoAdjunto()).ifPresent(buscaPropuesta::setArchivoAdjunto);
+        Optional.ofNullable(propuesta.getDescripcion()).ifPresent(buscaPropuesta::setDescripcion);
+        Optional.ofNullable(propuesta.getPlazo()).ifPresent(buscaPropuesta::setPlazo);
+        Optional.ofNullable(propuesta.getPresupuesto()).ifPresent(buscaPropuesta::setPresupuesto);
+
+        PropuestaResponseDTO propostaAtualizada = new PropuestaResponseDTO();
+        propostaAtualizada.setId(buscaPropuesta.getId());
+        propostaAtualizada.setDescripcion(buscaPropuesta.getDescripcion());
+        propostaAtualizada.setPresupuesto(buscaPropuesta.getPresupuesto());
+        propostaAtualizada.setPlazo(buscaPropuesta.getPlazo());
+        propostaAtualizada.setFechaEnvioPropuesta(buscaPropuesta.getFechaEnvioPropuesta());
+        propostaAtualizada.setEstado(buscaPropuesta.getEstado());
+        propostaAtualizada.setArchivoAdjunto(buscaPropuesta.getArchivoAdjunto());
+        propostaAtualizada.setTareaId(buscaPropuesta.getTarea().getId()); // Propuesta aplicada
+        propostaAtualizada.setUsuarioId(buscaPropuesta.getUsuario().getId()); // Usuario freelance que se postulo
+
+        return propostaAtualizada;
     }
 
     @Override
