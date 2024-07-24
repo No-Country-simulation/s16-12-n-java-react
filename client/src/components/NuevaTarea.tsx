@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const NuevaTarea = () => {
   return (
-    <div className='w-full bg-fondoNota h-screen content-center'>
+    <div className='bg-fondoNota content-center'>
       <form className='flex bg-white flex-col ml-48 w-3/4 pb-24'>
         <h1 className='text-4xl text-black text-left pl-32 pt-16 pb-12'>
           Titulo de la tarea
@@ -57,4 +57,5 @@ const NuevaTarea = () => {
     </div>
   );
 };
+
 export default NuevaTarea;
