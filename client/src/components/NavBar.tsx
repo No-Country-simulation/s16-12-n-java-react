@@ -18,19 +18,21 @@ const NavBar = () => {
     <nav className='flex items-center justify-between p-6 bg-palette_primary shadow-md font-bold text-palette_white'>
       <div className='w-9/12 mx-auto flex items-center justify-between'>
         <div className='flex items-center space-x-4'>
-          <img src={logo} alt='Logo' className='h-5 w-auto' />
+          <Link to='/'>
+            <img src={logo} alt='Logo' className='h-5 w-auto' />
+          </Link>
           <SearchBar />
         </div>
         <div className='flex items-center space-x-4'>
           {isAuthenticated() ? (
             <div className='flex items-center space-x-4 '>
-              <Link to='/' className='hover:text-gray-600 '>
+              <Link to='/dashboard' className='hover:text-gray-600 '>
                 Dashboard
               </Link>
-              <Link to='/about' className='hover:text-gray-600'>
+              <Link to='/perfil' className='hover:text-gray-600'>
                 Perfil
               </Link>
-              <Link to='/about' className='hover:text-gray-600'>
+              <Link to='/tareas' className='hover:text-gray-600'>
                 Mis Tareas
               </Link>
               <Button onClick={handleLogout} className='bg-palette_secondary text-palette_white font-bold'>

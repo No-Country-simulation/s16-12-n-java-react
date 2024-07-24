@@ -5,10 +5,12 @@ import { Button } from './ui/button';
 
 const Footer: React.FC = () => {
   return (
-    <footer className='bg-palette_dark text-white py-8'>
+    <footer className='bg-palette_dark text-white py-8 mt-auto'>
       <div className='container mx-auto flex justify-between items-center w-9/12'>
         <div className='flex items-center space-x-8'>
-          <img src={logo} alt='Logo' className='h-5 w-auto' />
+          <Link to='/'>
+            <img src={logo} alt='Logo' className='h-5 w-auto' />
+          </Link>
           <nav className='flex flex-col space-y-2 font-bold'>
             <Link to='/' className='hover:text-gray-400'>
               Inicio
