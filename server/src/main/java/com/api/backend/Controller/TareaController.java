@@ -208,4 +208,35 @@ public class TareaController {
         TareaResponseDTO tarea = tareaService.findTaskById(id);
         return ResponseEntity.ok().body(tarea);
     }
+
+    @Operation(
+            summary="Endpoint que busca todos las tareas creadas por un usuario",
+            description = "Este endpoint solo puede ser usado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse, es super necesario porque asi el back identifica que tareas hay que traer",
+            method = "GET",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success. En caso de éxito, se retorna los datos de las tareas",
+                            content = @Content(schema = @Schema(implementation = TareaResponseDTO.class,
+                                    contentMediaType = MediaType.APPLICATION_JSON_VALUE
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "204",
+                            description = "No Content. En caso de no encontrar tareas",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden. en caso de  existir excepciones no controladas devuelve un error de permisos.",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    )
+            }
+    )
+    @GetMapping("findByUser")
+    public ResponseEntity<Page<TareaResponseDTO>> findTaskByUser(Pageable pageable){
+          return ResponseEntity.ok().body(tareaService.findTaskByUserId(pageable));
+    }
 }

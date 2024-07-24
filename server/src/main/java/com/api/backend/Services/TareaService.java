@@ -18,4 +18,6 @@ public interface TareaService {
     TareaResponseDTO updateTask(TareaUpdateDTO task, Long id);
 
     TareaResponseDTO findTaskById(Long id);
+
+   Page<TareaResponseDTO> findTaskByUserId(Pageable pageable);
 }
