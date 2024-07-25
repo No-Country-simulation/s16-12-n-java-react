@@ -25,8 +25,6 @@ public class TareaDTO{
     @NotNull(message = "Price is mandatory")
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than zero")
     BigDecimal presupuesto;
-    @NotBlank
-    @Size(max = 100, message = "Title must be less than 100 characters")
     String imagenUrl;
     @NotNull
     @FutureOrPresent(message = "Plazo can´t be in past")
