@@ -53,7 +53,7 @@ export const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-        <Route path='/nosotros' element={<AboutUs />} />
+        <Route path='/about' element={<AboutUs />} />
         <Route
           path='/perfil'
           element={

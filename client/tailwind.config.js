@@ -60,6 +60,8 @@ module.exports = {
         palette_success: '#1C8C4E',
         palette_error: '#DC3545',
         palette_alert: '#FFC107',
+        palette_success_card: '#28C76F',
+        palette_primary_card: '#5A7EA3',
       },
       borderRadius: {
         lg: 'var(--radius)',
