@@ -85,8 +85,8 @@ public class PropuestaController {
 
     @GetMapping("/findAll")
     public ResponseEntity<Page<PropuestaResponseDTO>> findAllTareas(Pageable pageable) {
-        Page<PropuestaResponseDTO> propuestas = propuestaService.findAllPropuestas(pageable);
-        return ResponseEntity.ok().body(propuestas);
+
+        return null;
     }
 
     @Operation(
@@ -122,8 +122,8 @@ public class PropuestaController {
     )
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePropuesta(@PathVariable Long id) {
-        propuestaService.deletePropuestaById(id);
-        return ResponseEntity.noContent().build();
+
+        return null;
     }
 
     @Operation(
@@ -165,8 +165,7 @@ public class PropuestaController {
     )
     @PutMapping("/{id}")
     public ResponseEntity<PropuestaResponseDTO> updatePropuesta(@PathVariable Long id, @Valid @RequestBody PropuestaUpdateDTO propuestaUpdateDTO) {
-        PropuestaResponseDTO propuestaActualizada = propuestaService.updatePropuesta(propuestaUpdateDTO, id);
-        return ResponseEntity.ok().body(propuestaActualizada);
+        return null;
     }
 
 

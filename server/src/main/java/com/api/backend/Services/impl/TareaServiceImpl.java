@@ -102,5 +102,15 @@ public class TareaServiceImpl implements TareaService {
         return tareaMapper.toTareaDTO(tareaRepository.findByIdAndStatusTrue(id).get());
     }
 
+    @Override
+    public Tarea getTaskById(Long id) {
+        Optional <Tarea> optionalTarea = tareaRepository.findByIdAndStatusTrue(id);
+        if(optionalTarea.isPresent()){
+            return optionalTarea.get();
+        }
+        throw new ResourceNotFoundException("Task with id " + id + " not found");
+
+    }
+
 
 }

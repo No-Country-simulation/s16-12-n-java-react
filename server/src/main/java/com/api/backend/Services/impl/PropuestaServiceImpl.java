@@ -2,125 +2,53 @@ package com.api.backend.Services.impl;
 
 import com.api.backend.DTO.Propuesta.PropuestaDTO;
 import com.api.backend.DTO.Propuesta.PropuestaResponseDTO;
-import com.api.backend.DTO.Propuesta.PropuestaUpdateDTO;
+import com.api.backend.Exception.UserCreatedTaskException;
+import com.api.backend.Mappers.PropuestaMapper;
+import com.api.backend.Mappers.TareaMapper;
 import com.api.backend.Repository.PropuestaRepository;
-import com.api.backend.Repository.TareaRepository;
-import com.api.backend.Repository.UsuarioRepository;
 import com.api.backend.Services.PropuestaService;
 import com.api.backend.entities.Propuesta;
 import com.api.backend.entities.Tarea;
 import com.api.backend.entities.Usuario;
 import com.api.backend.entities.enums.EstadoPropuesta;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.Objects;
 
 
 @Service
 @RequiredArgsConstructor
 public class PropuestaServiceImpl implements PropuestaService {
 
-    private final TareaRepository tareaRepository;
-    private final UsuarioRepository usuarioRepository;
-    private final PropuestaRepository propuestaRepository;
+    private final TareaServiceImpl tareaService;
     private final UsuarioServiceImpl usuarioService;
+    private final PropuestaRepository propuestaRepository;
+    private final PropuestaMapper propuestaMapper;
 
-
-    @Override
-    public Page<PropuestaResponseDTO> findAllPropuestas(Pageable pageable) {
-        return null;
-    }
 
 
     @Override
     public PropuestaResponseDTO savePropuesta(PropuestaDTO propuestaDTO) {
-        // 1. Crear entidad Propuesta a partir del DTO
-        Propuesta propuesta = new Propuesta();
-        propuesta.setDescripcion(propuestaDTO.getDescripcion());
-        propuesta.setPresupuesto(propuestaDTO.getPresupuesto());
-        propuesta.setPlazo(propuestaDTO.getPlazo());
-        propuesta.setFechaEnvioPropuesta(LocalDate.now());
-        propuesta.setArchivoAdjunto(propuestaDTO.getArchivoAdjunto());
-        propuesta.setEstado(EstadoPropuesta.PENDIENTE); // Estado predeterminado en la creacion de la propuesta
-
-        // 2. Establecer relaciones (tarea y usuario)
-        Tarea tarea = tareaRepository.getReferenceById(propuestaDTO.getTareaId());
+        Usuario freelance = usuarioService.getUserByEmail();
+        Tarea tarea = tareaService.getTaskById(propuestaDTO.getTareaId());
+        if(Objects.equals(tarea.getContratador().getId(), freelance.getId())){
+            throw new UserCreatedTaskException("No puedes postularte a una tarea que creaste");
+        }
+        Propuesta propuesta = propuestaMapper.toPropuesta(propuestaDTO);
         propuesta.setTarea(tarea);
-
-        Usuario usuario = usuarioRepository.getReferenceById(usuarioService.getUserByEmail().getId());
-        propuesta.setUsuario(usuario);
-
-        // 3. Guardar entidad propuesta en la base de datos
+        propuesta.setFechaEnvioPropuesta(LocalDate.now());
+        propuesta.setEstado(EstadoPropuesta.PENDIENTE);
+        propuesta.setFreelance(freelance);
         propuestaRepository.save(propuesta);
 
-        // 4. Crear PropuestaResponseDTO a partir de la propuesta guardada
-        PropuestaResponseDTO propuestaResponseDTO = new PropuestaResponseDTO();
-        propuestaResponseDTO.setId(propuesta.getId());
-        propuestaResponseDTO.setDescripcion(propuesta.getDescripcion());
-        propuestaResponseDTO.setPresupuesto(propuesta.getPresupuesto());
-        propuestaResponseDTO.setPlazo(propuesta.getPlazo());
-        propuestaResponseDTO.setFechaEnvioPropuesta(propuesta.getFechaEnvioPropuesta());
-        propuestaResponseDTO.setEstado(propuesta.getEstado());
-        propuestaResponseDTO.setArchivoAdjunto(propuesta.getArchivoAdjunto());
+        return propuestaMapper.toPropuestaDTO(propuesta);
 
-        propuestaResponseDTO.setTareaId(propuesta.getTarea().getId()); // Propuesta aplicada
 
-        propuestaResponseDTO.setUsuarioId(propuesta.getUsuario().getId()); // Usuario freelance que se postulo
 
-        // 5. Devolver PropuestaResponseDTO
-        return propuestaResponseDTO;
     }
 
-    @Override
-    public void deletePropuestaById(Long id) {
-        // 1. Buscar Propuesta por id
-        Propuesta propuesta = propuestaRepository.findByIdAndStatusTrue(id).orElseThrow(() -> new RuntimeException("Propuesta no encontrada"));
-        Usuario usuario = usuarioRepository.getReferenceById(usuarioService.getUserByEmail().getId());
-        // 2. Eliminar la propuesta
-        if (!propuesta.getUsuario().equals(usuario)) {
-            throw new RuntimeException("No tienes permisos para eliminar esta propuesta");
-        }
-        propuesta.setStatus(false);
-        propuesta.setEstado(EstadoPropuesta.CANCELADA);
-    }
 
-    @Override
-    public PropuestaResponseDTO updatePropuesta(PropuestaUpdateDTO propuesta, Long id) {
 
-        Usuario usuario = usuarioRepository.getReferenceById(usuarioService.getUserByEmail().getId());
-
-        Propuesta buscaPropuesta = propuestaRepository.findByIdAndStatusTrue(id)
-                .orElseThrow(() -> new RuntimeException("Propuesta no encontrada"));
-
-        if (buscaPropuesta.getUsuario().equals(usuario)) {
-            throw new RuntimeException("No tienes permisos para editar esta propuesta");
-        }
-
-        Optional.ofNullable(propuesta.getArchivoAdjunto()).ifPresent(buscaPropuesta::setArchivoAdjunto);
-        Optional.ofNullable(propuesta.getDescripcion()).ifPresent(buscaPropuesta::setDescripcion);
-        Optional.ofNullable(propuesta.getPlazo()).ifPresent(buscaPropuesta::setPlazo);
-        Optional.ofNullable(propuesta.getPresupuesto()).ifPresent(buscaPropuesta::setPresupuesto);
-
-        PropuestaResponseDTO propostaAtualizada = new PropuestaResponseDTO();
-        propostaAtualizada.setId(buscaPropuesta.getId());
-        propostaAtualizada.setDescripcion(buscaPropuesta.getDescripcion());
-        propostaAtualizada.setPresupuesto(buscaPropuesta.getPresupuesto());
-        propostaAtualizada.setPlazo(buscaPropuesta.getPlazo());
-        propostaAtualizada.setFechaEnvioPropuesta(buscaPropuesta.getFechaEnvioPropuesta());
-        propostaAtualizada.setEstado(buscaPropuesta.getEstado());
-        propostaAtualizada.setArchivoAdjunto(buscaPropuesta.getArchivoAdjunto());
-        propostaAtualizada.setTareaId(buscaPropuesta.getTarea().getId()); // Propuesta aplicada
-        propostaAtualizada.setUsuarioId(buscaPropuesta.getUsuario().getId()); // Usuario freelance que se postulo
-
-        return propostaAtualizada;
-    }
-
-    @Override
-    public PropuestaResponseDTO findPropuestaById(Long id) {
-        return null;
-    }
 }
