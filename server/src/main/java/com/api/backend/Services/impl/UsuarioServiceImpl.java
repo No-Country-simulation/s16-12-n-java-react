@@ -62,7 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
     @Override
-    public Usuario getUserByEmail() {
+    public Usuario getLoggedUser() {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Usuario> userOptional = userRepository.findByEmail(email);
         if (userOptional.isEmpty()) {

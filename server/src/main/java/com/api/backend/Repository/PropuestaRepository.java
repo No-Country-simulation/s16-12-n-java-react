@@ -13,4 +13,8 @@ public interface PropuestaRepository extends JpaRepository<Propuesta, Long> {
     Page<Propuesta> findAllByStatusTrue(Pageable pageable);
 
     Optional<Propuesta> findByIdAndStatusTrue(Long id);
+
+    Page<Propuesta> findByTareaIdAndStatusTrue(Pageable pageable, Long tareaId);
+
+    Page<Propuesta> findByFreelanceId(Pageable pageable, Long freelancerId);
 }

@@ -4,7 +4,9 @@ import com.api.backend.DTO.Error.ErrorResponseDto;
 import com.api.backend.DTO.Propuesta.PropuestaDTO;
 import com.api.backend.DTO.Propuesta.PropuestaResponseDTO;
 import com.api.backend.DTO.Propuesta.PropuestaUpdateDTO;
+import com.api.backend.DTO.Tarea.TareaResponseDTO;
 import com.api.backend.Services.impl.PropuestaServiceImpl;
+import com.api.backend.entities.Propuesta;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,10 +32,10 @@ public class PropuestaController {
 
     @Operation(
             summary = "Endpoint para crear una propuesta",
-            description = "Este endpoint solo puede ser consultado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse. Se deben ingresar los datos de la propuesta, incluyendo la tarea asociada, el usuario contratador y el usuario freelance.",
+            description = "Este endpoint solo puede ser consultado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse. Se deben ingresar la descripcion de la propuesta, incluyendo el id de la tarea asociada, ",
             method = "POST",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Los elementos de este body son requeridos. Se deben ingresar los datos de la propuesta, incluyendo la tarea asociada (id), el usuario contratador (id) y el usuario freelance (id).",
+                    description = "Los elementos de este body son requeridos. Se deben ingresar los datos de la propuesta, incluyendo la tarea asociada (id)",
                     content = @Content(schema = @Schema(implementation = PropuestaDTO.class))
             ),
             responses = {
@@ -65,8 +67,8 @@ public class PropuestaController {
     }
 
     @Operation(
-            summary = "Endpoint para listar todas las propuestas",
-            description = "Este endpoint solo puede ser consultado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse. Se listan todas las propuestas existentes en el sistema.",
+            summary = "Endpoint para listar todas las propuestas asociadas a una tarea",
+            description = "Este endpoint solo puede ser consultado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse. Se listan todas las propuestas asociadas a una tarea.",
             method = "GET",
             responses = {
                     @ApiResponse(
@@ -76,6 +78,11 @@ public class PropuestaController {
                                     contentMediaType = MediaType.APPLICATION_JSON_VALUE))
                     ),
                     @ApiResponse(
+                            responseCode = "404",
+                            description = "Not found. En caso de no encontrar propuesta para esta tarea",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class))
+                    ),
+                    @ApiResponse(
                             responseCode = "403",
                             description = "Forbidden. En caso de no contar con los permisos necesarios o cuando existen excepciones no controladas devuelve un error de permisos.",
                             content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class))
@@ -83,10 +90,9 @@ public class PropuestaController {
             }
     )
 
-    @GetMapping("/findAll")
-    public ResponseEntity<Page<PropuestaResponseDTO>> findAllTareas(Pageable pageable) {
-
-        return null;
+    @GetMapping("/findByTarea/{tareaId}")
+    public ResponseEntity<Page<PropuestaResponseDTO>> findAllPropuestasByTarea(Pageable pageable, @PathVariable Long tareaId) {
+        return ResponseEntity.ok().body(propuestaService.getPropuestasByTareaId(pageable, tareaId));
     }
 
     @Operation(
@@ -98,13 +104,6 @@ public class PropuestaController {
                             responseCode = "204",
                             description = "No Content. En caso de éxito, no devuelve ningún contenido.",
                             content = @Content(schema = @Schema(implementation = Void.class))
-                    ),
-                    @ApiResponse(
-                            responseCode = "400",
-                            description = "Bad Request. En caso de error en el ingreso de datos, devuelve, en la mayoría de los casos, un Json que contiene el campo del error y una descripción del mismo.",
-                            content = @Content(schema = @Schema(implementation = ErrorResponseDto.class,
-                                    contentMediaType = MediaType.APPLICATION_JSON_VALUE
-                            ))
                     ),
                     @ApiResponse(
                             responseCode = "403",
@@ -122,8 +121,8 @@ public class PropuestaController {
     )
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePropuesta(@PathVariable Long id) {
-
-        return null;
+        propuestaService.deletePropuesta(id);
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(
@@ -131,7 +130,7 @@ public class PropuestaController {
             description = "Este endpoint solo puede ser consultado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse. Se actualiza la propuesta con el ID especificado.",
             method = "PUT",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Los elementos de este body son requeridos. Se deben ingresar los datos de la propuesta a actualizar, incluyendo la tarea asociada (id), el usuario contratador (id) y el usuario freelance (id).",
+                    description = "Los elementos de este body son requeridos. Se deben ingresar los datos de la propuesta a actualizar, El id de la tarea sea pasa por la url",
                     content = @Content(schema = @Schema(implementation = PropuestaDTO.class))
             ),
             responses = {
@@ -165,7 +164,70 @@ public class PropuestaController {
     )
     @PutMapping("/{id}")
     public ResponseEntity<PropuestaResponseDTO> updatePropuesta(@PathVariable Long id, @Valid @RequestBody PropuestaUpdateDTO propuestaUpdateDTO) {
-        return null;
+        return ResponseEntity.ok(propuestaService.updatePropuesta(id,propuestaUpdateDTO));
+    }
+
+    @Operation(
+            summary="Endpoint que busca todos los datos por id de una propuesta ",
+            description = "Este endpoint solo puede ser consultado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse. Se pasa el id de la propuesta por la url.",
+            method = "GET",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success. En caso de éxito, se retorna los datos de la tarea",
+                            content = @Content(schema = @Schema(implementation = TareaResponseDTO.class,
+                                    contentMediaType = MediaType.APPLICATION_JSON_VALUE
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Not found. En caso de no encontrar la tarea",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden. En caso de no contar con los permisos necesarios o de  existir excepciones no controladas devuelve un error de permisos.",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    )
+            }
+    )
+
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<PropuestaResponseDTO> findPropuestaById(@PathVariable Long id){
+        return ResponseEntity.ok(propuestaService.findPropuestaById(id));
+    }
+
+    @Operation(
+            summary="Endpoint que busca todos las propuestas creadas por un usuario",
+            description = "Este endpoint solo puede ser usado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse, es super necesario porque asi el back identifica que tareas hay que traer",
+            method = "GET",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success. En caso de éxito, se retorna los datos de las propuestas",
+                            content = @Content(schema = @Schema(implementation = PropuestaResponseDTO.class,
+                                    contentMediaType = MediaType.APPLICATION_JSON_VALUE
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No Found. En caso de no encontrar propuestas",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden. en caso de  existir excepciones no controladas devuelve un error de permisos.",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    )
+            }
+    )
+    @GetMapping("findByFreelance")
+    public ResponseEntity<Page<PropuestaResponseDTO>> findByFreelanceId(Pageable pageable){
+        return ResponseEntity.ok(propuestaService.getPropuestaByFreelancerId(pageable));
     }
 
 
