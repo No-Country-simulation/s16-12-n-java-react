@@ -47,7 +47,7 @@ public class TareaServiceImpl implements TareaService {
 
     @Override
     public TareaResponseDTO saveTasks(TareaDTO task) {
-        Usuario user = usuarioService.getUserByEmail();
+        Usuario user = usuarioService.getLoggedUser();
         Tarea tarea = tareaMapper.toTarea(task);
         tarea.setContratador(user);
         tarea.setFechaPublicacion(LocalDate.now());
