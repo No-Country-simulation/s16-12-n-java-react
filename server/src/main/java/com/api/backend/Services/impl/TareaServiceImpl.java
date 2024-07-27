@@ -3,18 +3,20 @@ package com.api.backend.Services.impl;
 import com.api.backend.DTO.Tarea.TareaDTO;
 import com.api.backend.DTO.Tarea.TareaResponseDTO;
 import com.api.backend.DTO.Tarea.TareaUpdateDTO;
-import com.api.backend.Exception.ResourceNotFoundException;
-import com.api.backend.Exception.TaskInProgressException;
-import com.api.backend.Exception.TaskNotFoundException;
+import com.api.backend.Exception.*;
 import com.api.backend.Mappers.TareaMapper;
 import com.api.backend.Repository.TareaRepository;
+import com.api.backend.Services.PropuestaService;
 import com.api.backend.Services.TareaService;
+import com.api.backend.entities.Propuesta;
 import com.api.backend.entities.Tarea;
 import com.api.backend.entities.Usuario;
+import com.api.backend.entities.enums.EstadoPropuesta;
 import com.api.backend.entities.enums.EstadoTarea;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,12 +24,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 
 @Service
 @RequiredArgsConstructor
+@Lazy
 public class TareaServiceImpl implements TareaService {
 
     
@@ -36,12 +40,12 @@ public class TareaServiceImpl implements TareaService {
     private final HabilidadServiceImpl habilidadService;
     private final CategoriaServiceImpl categoriaService;
     private final TareaMapper tareaMapper;
-    
+    private final  PropuestaService propuestaService;
     
 
     @Override
     public Page<TareaResponseDTO> findAllTasks(Pageable pageable) {
-        Page<Tarea> task = tareaRepository.findAllByStatusTrue(pageable);
+        Page<Tarea> task = tareaRepository.findAllByStatusTrueAndEstadoTarea(pageable,EstadoTarea.PUBLICADA);
         if (task.isEmpty()) throw new TaskNotFoundException("No hay tareas");
         return task.map(tareaMapper::toTareaDTO);
     }
@@ -120,6 +124,49 @@ public class TareaServiceImpl implements TareaService {
         Page<Tarea> tasks = tareaRepository.findByContratadorId(pageable, contratadorId);
         if (tasks.isEmpty()) throw new TaskNotFoundException("No hay tareas");
         return tasks.map(tareaMapper :: toTareaDTO);
+    }
+
+    @Override
+    @Transactional
+    public void acceptPropuesta(Long tareaId , Long propuestaId) {
+
+        Usuario contratador = usuarioService.getLoggedUser();
+        Tarea tarea = getTaskById(tareaId);
+
+        if(!(Objects.equals(contratador.getId(), tarea.getContratador().getId()))){
+            throw new OnlyUserCanHandlerPropuestaException("Solo el usuario contratador puede aceptar una propuesta");
+        }
+
+        Propuesta propuesta = propuestaService.getPropuestaById(propuestaId);
+        propuesta.setEstado(EstadoPropuesta.ACEPTADA);
+        tarea.setEstadoTarea(EstadoTarea.EN_PROCESO);
+        tarea.setFreelance(propuesta.getFreelance());
+
+    }
+
+    @Override
+    @Transactional
+    public void declinePropuesta(Long tareaId ,Long propuestaId) {
+        Usuario contratador = usuarioService.getLoggedUser();
+        Tarea tarea = getTaskById(tareaId);
+        if(!(Objects.equals(contratador.getId(), tarea.getContratador().getId()))){
+            throw new OnlyUserCanHandlerPropuestaException("Solo el usuario contratador puede rechazar una propuesta");
+        }
+        Propuesta propuesta = propuestaService.getPropuestaById(propuestaId);
+        propuesta.setEstado(EstadoPropuesta.RECHAZADA);
+        propuesta.setStatus(Boolean.FALSE);
+    }
+    @Override
+    @Transactional
+    public void finishTarea(Long tareaId, Long propuestaId){
+        Usuario contratador = usuarioService.getLoggedUser();
+        Tarea tarea = getTaskById(tareaId);
+        Propuesta propuesta = propuestaService.getPropuestaById(propuestaId);
+        if(Objects.equals(propuesta.getFreelance().getId(), tarea.getFreelance().getId())){
+            throw new OnlyFreelanceCanFinishTask("Solo el freelance asignado puede finalizar la tarea");
+        }
+        tarea.setEstadoTarea(EstadoTarea.COMPLETADA);
+
     }
 
 }

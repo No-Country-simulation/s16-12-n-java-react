@@ -4,6 +4,7 @@ import com.api.backend.entities.Tarea;
 
 import java.util.Optional;
 
+import com.api.backend.entities.enums.EstadoTarea;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,4 +17,6 @@ public interface TareaRepository extends JpaRepository<Tarea, Long> {
     Optional<Tarea> findByIdAndStatusTrue(Long id);
 
     Page<Tarea> findByContratadorId(Pageable pageable, Long userId);
+
+    Page<Tarea> findAllByStatusTrueAndEstadoTarea(Pageable pageable, EstadoTarea estadoTarea);
 }

@@ -49,8 +49,20 @@ public class RestResponseEntityExceptionHandler {
     public ResponseEntity<Object> handlerPropuestaNotFoundExcepcion(PropuestaNotFoundExcepcion ex) {
         return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(OnlyUserCanHandlerPropuestaException.class)
+    public ResponseEntity<Object> handlerOnlyUserCanHandlerPropuestaException(OnlyUserCanHandlerPropuestaException ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(CantSendPropuestaException.class)
+    public ResponseEntity<Object> handlerCantSendPropuestaException(CantSendPropuestaException ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
+    }
     @ExceptionHandler(UserCreatedTaskException.class)
     public ResponseEntity<Object> handlerUserCreatedTaskException(UserCreatedTaskException ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(OnlyFreelanceCanFinishTask.class)
+    public ResponseEntity<Object> handlerOnlyFreelanceCanFinishTask(OnlyFreelanceCanFinishTask ex) {
         return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
     }
 

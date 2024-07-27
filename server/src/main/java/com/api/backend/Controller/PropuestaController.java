@@ -5,6 +5,7 @@ import com.api.backend.DTO.Propuesta.PropuestaDTO;
 import com.api.backend.DTO.Propuesta.PropuestaResponseDTO;
 import com.api.backend.DTO.Propuesta.PropuestaUpdateDTO;
 import com.api.backend.DTO.Tarea.TareaResponseDTO;
+import com.api.backend.Services.PropuestaService;
 import com.api.backend.Services.impl.PropuestaServiceImpl;
 import com.api.backend.entities.Propuesta;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Propuesta")
 public class PropuestaController {
 
-    private final PropuestaServiceImpl propuestaService;
+    private final PropuestaService propuestaService;
 
     @Operation(
             summary = "Endpoint para crear una propuesta",
@@ -229,6 +230,7 @@ public class PropuestaController {
     public ResponseEntity<Page<PropuestaResponseDTO>> findByFreelanceId(Pageable pageable){
         return ResponseEntity.ok(propuestaService.getPropuestaByFreelancerId(pageable));
     }
+
 
 
 }
