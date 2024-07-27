@@ -14,4 +14,6 @@ public interface TareaRepository extends JpaRepository<Tarea, Long> {
     Page<Tarea> findAllByStatusTrue(Pageable pageable);
 
     Optional<Tarea> findByIdAndStatusTrue(Long id);
+
+    Page<Tarea> findByContratadorId(Pageable pageable, Long userId);
 }
