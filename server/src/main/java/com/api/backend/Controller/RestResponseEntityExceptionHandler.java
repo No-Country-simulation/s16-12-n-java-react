@@ -45,6 +45,14 @@ public class RestResponseEntityExceptionHandler {
     public ResponseEntity<Object> handlerCategoryNotFoundExcepcion(CategoryNotFoundExcepcion ex) {
         return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(PropuestaNotFoundExcepcion.class)
+    public ResponseEntity<Object> handlerPropuestaNotFoundExcepcion(PropuestaNotFoundExcepcion ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(UserCreatedTaskException.class)
+    public ResponseEntity<Object> handlerUserCreatedTaskException(UserCreatedTaskException ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(HabilidadNotFoundExcepcion.class)
     public ResponseEntity<Object> handlerHabilidadNotFoundExcepcion(HabilidadNotFoundExcepcion ex) {

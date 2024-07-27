@@ -48,7 +48,7 @@ public class TareaServiceImpl implements TareaService {
 
     @Override
     public TareaResponseDTO saveTasks(TareaDTO task) {
-        Usuario user = usuarioService.getUserByEmail();
+        Usuario user = usuarioService.getLoggedUser();
         Tarea tarea = tareaMapper.toTarea(task);
         tarea.setContratador(user);
         tarea.setFechaPublicacion(LocalDate.now());
@@ -105,14 +105,21 @@ public class TareaServiceImpl implements TareaService {
             .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
         return tareaMapper.toTareaDTO(tareaRepository.findByIdAndStatusTrue(id).get());
     }
+    @Override
+    public Tarea getTaskById(Long id) {
+        Optional <Tarea> optionalTarea = tareaRepository.findByIdAndStatusTrue(id);
+        if(optionalTarea.isPresent()){
+            return optionalTarea.get();
+        }
+        throw new ResourceNotFoundException("Task with id " + id + " not found");
 
+    }
     @Override
     public  Page<TareaResponseDTO> findTaskByUserId(Pageable pageable) {
-        Long contratadorId =  usuarioService.getUserByEmail().getId();
+        Long contratadorId =  usuarioService.getLoggedUser().getId();
         Page<Tarea> tasks = tareaRepository.findByContratadorId(pageable, contratadorId);
         if (tasks.isEmpty()) throw new TaskNotFoundException("No hay tareas");
         return tasks.map(tareaMapper :: toTareaDTO);
     }
-
 
 }
