@@ -239,6 +239,134 @@ public class TareaController {
     public ResponseEntity<Page<TareaResponseDTO>> findTaskByUser(Pageable pageable){
           return ResponseEntity.ok().body(tareaService.findTaskByUserId(pageable));
     }
+
+    @Operation(
+            summary="Endpoint que busca todos las tareas creadas para una determinada categoria",
+            description = "Este endpoint solo puede ser usado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse, es super necesario porque asi el back identifica que tareas hay que traer",
+            method = "GET",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success. En caso de éxito, se retorna los datos de las tareas",
+                            content = @Content(schema = @Schema(implementation = TareaResponseDTO.class,
+                                    contentMediaType = MediaType.APPLICATION_JSON_VALUE
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "204",
+                            description = "No Content. En caso de no encontrar tareas",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden. en caso de  existir excepciones no controladas devuelve un error de permisos.",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    )
+            }
+    )
+    @GetMapping("findByCategoria")
+    public ResponseEntity<Page<TareaResponseDTO>> findTaskByCaregoria(@RequestBody @Valid TareaFindCategoriaDTO categoria, Pageable pageable){
+        return ResponseEntity.ok().body(tareaService.findTaskByCategoria(categoria, pageable));
+    }
+
+    @Operation(
+            summary="Endpoint que busca todos las tareas creadas por un rango de precio",
+            description = "Este endpoint solo puede ser usado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse, es super necesario porque asi el back identifica que tareas hay que traer",
+            method = "GET",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success. En caso de éxito, se retorna los datos de las tareas",
+                            content = @Content(schema = @Schema(implementation = TareaResponseDTO.class,
+                                    contentMediaType = MediaType.APPLICATION_JSON_VALUE
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "204",
+                            description = "No Content. En caso de no encontrar tareas",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden. en caso de  existir excepciones no controladas devuelve un error de permisos.",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    )
+            }
+    )
+
+    @GetMapping("findByPrice")
+    public ResponseEntity<Page<TareaResponseDTO>> findTaskByPrice(@RequestBody @Valid TareaRangePriceDTO rangePrice, Pageable pageable){
+          return ResponseEntity.ok().body(tareaService.findTaskByRangePrice(rangePrice, pageable));
+    }
+
+    @Operation(
+            summary="Endpoint que busca todos las tareas creadas a partir de una data de publicacion",
+            description = "Este endpoint solo puede ser usado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse, es super necesario porque asi el back identifica que tareas hay que traer",
+            method = "GET",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success. En caso de éxito, se retorna los datos de las tareas",
+                            content = @Content(schema = @Schema(implementation = TareaResponseDTO.class,
+                                    contentMediaType = MediaType.APPLICATION_JSON_VALUE
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "204",
+                            description = "No Content. En caso de no encontrar tareas",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden. en caso de  existir excepciones no controladas devuelve un error de permisos.",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    )
+            }
+    )
+
+    @GetMapping("findByDate")
+    public ResponseEntity<Page<TareaResponseDTO>> findTaskByDatePublicacion(@RequestBody @Valid TareaDateDTO datePublicacion, Pageable pageable){
+        return ResponseEntity.ok().body(tareaService.findTaskByDatePublicacion(datePublicacion, pageable));
+    }
+
+    @Operation(
+            summary="Endpoint que busca todos las tareas creadas a partir de una fecha inicial y fecha fin",
+            description = "Este endpoint solo puede ser usado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse, es super necesario porque asi el back identifica que tareas hay que traer",
+            method = "GET",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success. En caso de éxito, se retorna los datos de las tareas",
+                            content = @Content(schema = @Schema(implementation = TareaResponseDTO.class,
+                                    contentMediaType = MediaType.APPLICATION_JSON_VALUE
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "204",
+                            description = "No Content. En caso de no encontrar tareas",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden. en caso de  existir excepciones no controladas devuelve un error de permisos.",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    )
+            }
+    )
+
+    @GetMapping("findByRangeDate")
+    public ResponseEntity<Page<TareaResponseDTO>> findTaskByRangeDate(@RequestBody @Valid TareaDateDTO rangeDate, Pageable pageable){
+        return ResponseEntity.ok().body(tareaService.findTaskByRangeDate(rangeDate, pageable));
+    }
+
     @Operation(
             summary="Endpoint acepta una propuesta para una tarea",
             description = "Este endpoint solo puede ser usado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse, este cambia el estado de la propuesta y de la tarea, pide como parametros el id de la tarea y el id de la propuesta",

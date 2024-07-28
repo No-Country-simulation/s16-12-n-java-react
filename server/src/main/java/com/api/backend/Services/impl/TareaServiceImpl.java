@@ -1,5 +1,9 @@
 package com.api.backend.Services.impl;
 
+import com.api.backend.DTO.Tarea.*;
+import com.api.backend.Exception.ResourceNotFoundException;
+import com.api.backend.Exception.TaskInProgressException;
+import com.api.backend.Exception.TaskNotFoundException;
 import com.api.backend.DTO.Tarea.TareaDTO;
 import com.api.backend.DTO.Tarea.TareaResponseDTO;
 import com.api.backend.DTO.Tarea.TareaUpdateDTO;
@@ -40,12 +44,12 @@ public class TareaServiceImpl implements TareaService {
     private final HabilidadServiceImpl habilidadService;
     private final CategoriaServiceImpl categoriaService;
     private final TareaMapper tareaMapper;
-    private final  PropuestaService propuestaService;
+    
     
 
     @Override
     public Page<TareaResponseDTO> findAllTasks(Pageable pageable) {
-        Page<Tarea> task = tareaRepository.findAllByStatusTrueAndEstadoTarea(pageable,EstadoTarea.PUBLICADA);
+        Page<Tarea> task = tareaRepository.findAllByStatusTrue(pageable);
         if (task.isEmpty()) throw new TaskNotFoundException("No hay tareas");
         return task.map(tareaMapper::toTareaDTO);
     }
@@ -125,6 +129,41 @@ public class TareaServiceImpl implements TareaService {
         if (tasks.isEmpty()) throw new TaskNotFoundException("No hay tareas");
         return tasks.map(tareaMapper :: toTareaDTO);
     }
+
+    @Override
+    public Page<TareaResponseDTO> findTaskByCategoria(TareaFindCategoriaDTO categoria, Pageable pageable) {
+        Page<Tarea> task = tareaRepository.findByCategoriaNombre(categoria.getNombreCategoria(), pageable);
+        if (task.isEmpty()) {
+            throw new TaskNotFoundException("No hay tareas");
+        }
+        return task.map(tareaMapper::toTareaDTO);
+    }
+
+    @Override
+    public Page<TareaResponseDTO> findTaskByRangePrice(TareaRangePriceDTO rangePrice, Pageable pageable) {
+        Page<Tarea> task = tareaRepository.findByRangePrice(rangePrice.getPresupuestoMin(), rangePrice.getPresupuestoMax(), pageable);
+        if (task.isEmpty()) {
+            throw new TaskNotFoundException("No hay tareas en ese rango de precio");
+        }
+        return task.map(tareaMapper::toTareaDTO);    }
+
+    @Override
+    public Page<TareaResponseDTO> findTaskByDatePublicacion(TareaDateDTO datePublicacion, Pageable pageable) {
+        Page<Tarea> task = tareaRepository.findByFechaPublicacionGreaterThanEqual(datePublicacion.getFechaPublicacion(), pageable);
+        if (task.isEmpty()) {
+            throw new TaskNotFoundException("No hay tareas a partir de esa fecha de publicacion");
+        }
+        return task.map(tareaMapper::toTareaDTO);    }
+
+    @Override
+    public Page<TareaResponseDTO> findTaskByRangeDate(TareaDateDTO rangeDate, Pageable pageable) {
+        Page<Tarea> task = tareaRepository.findByFechaPublicacionBetween(rangeDate.getFechaPublicacion(), rangeDate.getPlazo(), pageable);
+        if (task.isEmpty()) {
+            throw new TaskNotFoundException("No hay tareas en ese rango informado");
+        }
+        return task.map(tareaMapper::toTareaDTO);
+    }
+
 
     @Override
     @Transactional
