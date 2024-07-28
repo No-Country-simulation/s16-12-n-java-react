@@ -1,8 +1,6 @@
 package com.api.backend.Services;
 
-import com.api.backend.DTO.Tarea.TareaDTO;
-import com.api.backend.DTO.Tarea.TareaResponseDTO;
-import com.api.backend.DTO.Tarea.TareaUpdateDTO;
+import com.api.backend.DTO.Tarea.*;
 
 
 import com.api.backend.entities.Tarea;
@@ -21,4 +19,11 @@ public interface TareaService {
     TareaResponseDTO findTaskById(Long id);
     Tarea getTaskById(Long id);
     Page<TareaResponseDTO> findTaskByUserId(Pageable pageable);
+    Page<TareaResponseDTO> findTaskByCategoria (TareaFindCategoriaDTO categoria, Pageable pageable);
+
+    Page<TareaResponseDTO> findTaskByRangePrice(TareaRangePriceDTO rangePrice, Pageable pageable);
+
+    Page<TareaResponseDTO> findTaskByDatePublicacion(TareaDateDTO datePublicacion, Pageable pageable);
+
+    Page<TareaResponseDTO> findTaskByRangeDate(TareaDateDTO rangeDate, Pageable pageable);
 }
