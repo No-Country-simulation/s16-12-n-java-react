@@ -13,7 +13,7 @@ interface Persona {
     facebook?: string;
     twitter?: string;
     instagram?: string;
-    linkdin?: string;
+    linkedin?: string;
     [key: string]: string | undefined;
   };
 }
