@@ -1,0 +1,184 @@
+{
+    "cards": [
+        {
+            "imagen": "../src/assets/equipo/Glory.jpg",
+            "nombre": "Glory Tovar",
+            "bandera": "../src/assets/banderas/venezuela.png",
+            "rol": "QA",
+            "pais": "Venezuela",
+            "hobbies": "Correr",
+            "herramienta": "Postman, Cypress, Playwright",
+            "links": {
+                "facebook": "https://facebook.com/glory",
+                "twitter": "https://twitter.com/glory",
+                "instagram": "https://instagram.com/glory",
+                "linkedin": "https://linkedin.com/in/glory"
+            }
+        },
+        {
+            "imagen": "../src/assets/equipo/Yohan.jpg",
+            "nombre": "Yohan Rodriguez",
+            "bandera": "../src/assets/banderas/venezuela.png",
+            "rol": "QA",
+            "pais": "Venezuela",
+            "hobbies": "Fútbol",
+            "herramienta": "Postman, Jira, QMetry, Excel",
+            "links": {
+                "facebook": "https://facebook.com/yohan",
+                "twitter": "https://twitter.com/yohan",
+                "instagram": "https://instagram.com/yohan",
+                "linkedin": "https://linkedin.com/in/yohan"
+            }
+        },
+        {
+            "imagen": "../src/assets/equipo/Alfred.jpg",
+            "nombre": "Alfred García",
+            "bandera": "../src/assets/banderas/mexico.png",
+            "rol": "Back-End",
+            "pais": "México",
+            "hobbies": "Videojuegos",
+            "herramienta": "herramienta específica",
+            "links": {
+                "facebook": "https://facebook.com/alfred",
+                "twitter": "https://twitter.com/alfred",
+                "instagram": "https://instagram.com/alfred",
+                "linkedin": "https://linkedin.com/in/alfred"
+            }
+        },
+        {
+            "imagen": "../src/assets/equipo/silueta.jpg",
+            "nombre": "Brian Diaz",
+            "bandera": "../src/assets/banderas/ecuador.png",
+            "rol": "Back-End",
+            "pais": "Ecuador",
+            "hobbies": "Dolor sit amet",
+            "herramienta": "herramienta específica",
+            "links": {
+                "facebook": "https://facebook.com/brian",
+                "twitter": "https://twitter.com/brian",
+                "instagram": "https://instagram.com/brian",
+                "linkedin": "https://linkedin.com/in/brian"
+            }
+        },
+        {
+            "imagen": "../src/assets/equipo/silueta.jpg",
+            "nombre": "Joel Rondinel",
+            "bandera": "../src/assets/banderas/argentina.png",
+            "rol": "Back-End",
+            "pais": "Argentina",
+            "hobbies": "Entrenar, Dibujar",
+            "herramienta": "Spring, Java",
+            "links": {
+                "facebook": "https://facebook.com/joel",
+                "twitter": "https://twitter.com/joel",
+                "instagram": "https://instagram.com/joel",
+                "linkedin": "https://linkedin.com/in/joel"
+            }
+        },
+        {
+            "imagen": "../src/assets/equipo/Mikel.jpg",
+            "nombre": "Mikel Cedeño",
+            "bandera": "../src/assets/banderas/venezuela.png",
+            "rol": "Back-End",
+            "pais": "Venezuela",
+            "hobbies": "Leer, Fútbol, Correr",
+            "herramienta": "Java, Spring, Postgrest, Postman, IntelliJ",
+            "links": {
+                "facebook": "https://facebook.com/mikel",
+                "twitter": "https://twitter.com/mikel",
+                "instagram": "https://instagram.com/mikel",
+                "linkedin": "https://linkedin.com/in/mikel"
+            }
+        },
+        {
+            "imagen": "../src/assets/equipo/Lucio.jpg",
+            "nombre": "Luciano Pardo",
+            "bandera": "../src/assets/banderas/argentina.png",
+            "rol": "Front-End",
+            "pais": "Argentina",
+            "hobbies": "Juegos (PC/Board)",
+            "herramienta": "NextJS, HTML, CSS, React, Tailwind, JS",
+            "links": {
+                "facebook": "https://facebook.com/luciano",
+                "twitter": "https://twitter.com/luciano",
+                "instagram": "https://instagram.com/luciano",
+                "linkedin": "https://linkedin.com/in/luciano"
+            }
+        },
+        {
+            "imagen": "../src/assets/equipo/Adan.png",
+            "nombre": "Adan Jimenez",
+            "bandera": "../src/assets/banderas/bolivia.png",
+            "rol": "Front-End",
+            "pais": "Bolivia",
+            "hobbies": "Astronomía",
+            "herramienta": "Tailwind, Typescript, Javascript, React",
+            "links": {
+                "facebook": "https://facebook.com/adan",
+                "twitter": "https://twitter.com/adan",
+                "instagram": "https://instagram.com/adan",
+                "linkedin": "https://linkedin.com/in/adan"
+            }
+        },
+        {
+            "imagen": "../src/assets/equipo/silueta.jpg",
+            "nombre": "Salomón Contreras",
+            "bandera": "../src/assets/banderas/argentina.png",
+            "rol": "Front-End",
+            "pais": "Argentina",
+            "hobbies": "Dolor sit amet",
+            "herramienta": "herramienta específica",
+            "links": {
+                "facebook": "https://facebook.com/salomon",
+                "twitter": "https://twitter.com/salomon",
+                "instagram": "https://instagram.com/salomon",
+                "linkedin": "https://linkedin.com/in/salomon"
+            }
+        },
+        {
+            "imagen": "../src/assets/equipo/Teresa.jpg",
+            "nombre": "Maria Maisterra",
+            "bandera": "../src/assets/banderas/argentina.png",
+            "rol": "Front-End",
+            "pais": "Argentina",
+            "hobbies": "Bordar, Coser",
+            "herramienta": "React Vite, CSS, HTML5, Javascript, Tailwind",
+            "links": {
+                "facebook": "https://facebook.com/maria",
+                "twitter": "https://twitter.com/maria",
+                "instagram": "https://instagram.com/maria",
+                "linkedin": "https://linkedin.com/in/maria"
+            }
+        },
+        {
+            "imagen": "../src/assets/equipo/silueta.jpg",
+            "nombre": "Noé Machaca",
+            "bandera": "../src/assets/banderas/peru.png",
+            "rol": "Front-End",
+            "pais": "Peru",
+            "hobbies": "Ajedrez, Programacion competitiva",
+            "herramienta": "Tailwind, Javascript, React, Java, Spring",
+            "links": {
+                "facebook": "https://facebook.com/noe",
+                "twitter": "https://twitter.com/noe",
+                "instagram": "https://instagram.com/noe",
+                "linkedin": "https://linkedin.com/in/noe"
+            }
+        },
+        {
+            "imagen": "../src/assets/equipo/Fernando.jpg",
+            "nombre": "Fernando Vergel",
+            "bandera": "../src/assets/banderas/peru.png",
+            "rol": "UI / UX",
+            "pais": "Peru",
+            "hobbies": "Leer, Ciclismo, DJ",
+            "herramienta": "Figma, Photoshop, KDEnLive",
+            "links": {
+                "facebook": "https://facebook.com/fernando",
+                "twitter": "https://twitter.com/fernando",
+                "instagram": "https://instagram.com/fernando",
+                "linkedin": "https://linkedin.com/in/fernando"
+            }
+        }
+    ]
+}

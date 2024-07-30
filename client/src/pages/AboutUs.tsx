@@ -22,7 +22,7 @@ const AboutUs = () => {
   const [data, setData] = useState<Persona[] | null>(null);
 
   useEffect(() => {
-    fetch('/data/cards.json')
+    fetch('/cards.json')
       .then((response) => {
         if (!response.ok) throw new Error('Archivo no encontrado');
         return response.json();
