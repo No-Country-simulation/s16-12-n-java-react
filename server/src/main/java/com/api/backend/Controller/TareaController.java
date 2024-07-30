@@ -365,4 +365,92 @@ public class TareaController {
         return ResponseEntity.ok().body(tareaService.findTaskByRangeDate(rangeDate, pageable));
     }
 
+    @Operation(
+            summary="Endpoint acepta una propuesta para una tarea",
+            description = "Este endpoint solo puede ser usado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse, este cambia el estado de la propuesta y de la tarea, pide como parametros el id de la tarea y el id de la propuesta",
+            method = "PUT",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success. En caso de éxito, se retorna un mensaje de exito",
+                            content = @Content(schema = @Schema(implementation = String.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad Request. este puede pasar en caso de que el otro contratador que no fue el que creo la tarea intente aceptar propuestas",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden.  En caso de no contar con los permisos necesarios o en caso de  existir excepciones no controladas devuelve un error de permisos.",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    )
+            }
+    )
+    @PutMapping("acceptPropuesta")
+    public ResponseEntity<String> acceptPropuesta(@RequestParam Long tareaId, @RequestParam Long propuestaId){
+        tareaService.acceptPropuesta(tareaId,propuestaId);
+        return ResponseEntity.ok().body("La propuesta se acepto con exito");
+    }
+    @Operation(
+            summary="Endpoint rechaza una propuesta para una tarea",
+            description = "Este endpoint solo puede ser usado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse, este cambia el estado de la propuesta y de la tarea, pide como parametros el id de la tarea y el id de la propuesta",
+            method = "PUT",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success. En caso de éxito, se retorna un mensaje de exito",
+                            content = @Content(schema = @Schema(implementation = String.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad Request. este puede pasar en caso de que el otro contratador que no fue el que creo la tarea intente rechazar propuestas",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden.  En caso de no contar con los permisos necesarios o en caso de  existir excepciones no controladas devuelve un error de permisos.",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    )
+            }
+    )
+    @PutMapping("declinePropuesta")
+    public ResponseEntity<String> declinePropuesta(@RequestParam Long tareaId, @RequestParam Long propuestaId){
+        tareaService.declinePropuesta(tareaId,propuestaId);
+        return ResponseEntity.ok().body("La propuesta se rechazo con exito");
+    }
+    @Operation(
+            summary="Endpoint finaliza una propuesta para una tarea",
+            description = "Este endpoint solo puede ser usado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse, pide como parametros el id de la tarea",
+            method = "PUT",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success. En caso de éxito, se retorna un mensaje de exito",
+                            content = @Content(schema = @Schema(implementation = String.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad Request. este puede pasar en caso de que otro freelance que no fue el que esta asignado a la tarea intente finalizar una propuesta",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    ),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Forbidden.  En caso de no contar con los permisos necesarios o en caso de  existir excepciones no controladas devuelve un error de permisos.",
+                            content = @Content(schema = @Schema(implementation = RestResponseEntityExceptionHandler.class
+                            ))
+                    )
+            }
+    )
+    @PutMapping("finishTarea")
+    public ResponseEntity<String> finishPropuesta(@RequestParam Long tareaId){
+        tareaService.finishTarea(tareaId);
+        return ResponseEntity.ok().body("La propuesta se finalizo con exito");
+    }
+
 }

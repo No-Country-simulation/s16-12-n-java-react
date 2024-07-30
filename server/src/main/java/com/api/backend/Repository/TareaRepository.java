@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import com.api.backend.entities.enums.EstadoTarea;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,4 +30,6 @@ public interface TareaRepository extends JpaRepository<Tarea, Long> {
     Page<Tarea> findByFechaPublicacionGreaterThanEqual(LocalDate fechaPublicacion, Pageable pageable);
 
     Page<Tarea> findByFechaPublicacionBetween(LocalDate fechaPublicacion, LocalDate plazo, Pageable pageable);
+    Page<Tarea> findAllByStatusTrueAndEstadoTarea(Pageable pageable, EstadoTarea estadoTarea);
+
 }
