@@ -6,7 +6,7 @@ export const createTask = async (
   taskData: TaskData
 ): Promise<any> => {
   try {
-    const res = await axiosClient.post('/api/v1/tareas/create', taskData, {
+    const res = await axiosClient.post('/api/v1/tareas/save', taskData, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return res.data;

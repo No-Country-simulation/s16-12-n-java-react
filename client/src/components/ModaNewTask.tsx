@@ -11,7 +11,7 @@ export function ModalNewTask() {
           Publicar Nueva Tarea
         </Button>
       </DialogTrigger>
-      <DialogContent className='max-w-3xl h-dvh'>
+      <DialogContent className='max-w-3xl h-dvh overflow-x-hidden'>
         <NuevaTarea />
       </DialogContent>
     </Dialog>

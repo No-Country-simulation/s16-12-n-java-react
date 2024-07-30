@@ -1,6 +1,6 @@
 import { axiosClient } from '../lib/axiosClient';
 
-export const deleteBook = async (token: string, id: number): Promise<any> => {
+export const deleteTask = async (token: string, id: number): Promise<any> => {
   try {
     await axiosClient.delete(`/api/v1/tareas/delete/${id}`, {
       headers: { Authorization: `Bearer ${token}` },

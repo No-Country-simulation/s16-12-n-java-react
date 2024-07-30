@@ -8,7 +8,6 @@ interface AuthStoreState {
   isLoading: boolean;
   error: string | null;
   user: any;
-  booksData: any;
   login: (userData: Pick<UserData, 'email' | 'contrasena'>) => Promise<string>;
   register: (userData: UserData) => Promise<string>;
   logout: () => void;
@@ -42,7 +41,6 @@ const useAuthStore = create<AuthStoreState>((set, get) => {
     isLoading: false,
     error: null,
     user: null,
-    booksData: null,
 
     login: async (userData: Pick<UserData, 'email' | 'contrasena'>) => {
       const res = await handleApiCall(
@@ -64,7 +62,7 @@ const useAuthStore = create<AuthStoreState>((set, get) => {
 
     logout: () => {
       Cookies.remove('authToken');
-      set({ token: null, user: null, booksData: null });
+      set({ token: null, user: null });
     },
 
     clearError: () => set({ error: null }),
