@@ -163,8 +163,6 @@ public class TareaServiceImpl implements TareaService {
         }
         return task.map(tareaMapper::toTareaDTO);
     }
-
-
     @Override
     @Transactional
     public void acceptPropuesta(Long tareaId , Long propuestaId) {
@@ -207,5 +205,4 @@ public class TareaServiceImpl implements TareaService {
         tarea.setEstadoTarea(EstadoTarea.COMPLETADA);
 
     }
-
 }

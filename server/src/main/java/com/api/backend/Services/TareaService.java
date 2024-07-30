@@ -20,13 +20,12 @@ public interface TareaService {
     Tarea getTaskById(Long id);
     Page<TareaResponseDTO> findTaskByUserId(Pageable pageable);
     Page<TareaResponseDTO> findTaskByCategoria (TareaFindCategoriaDTO categoria, Pageable pageable);
-
     Page<TareaResponseDTO> findTaskByRangePrice(TareaRangePriceDTO rangePrice, Pageable pageable);
-
     Page<TareaResponseDTO> findTaskByDatePublicacion(TareaDateDTO datePublicacion, Pageable pageable);
-
     Page<TareaResponseDTO> findTaskByRangeDate(TareaDateDTO rangeDate, Pageable pageable);
     void acceptPropuesta(Long tareaId, Long propuestaId);
     void declinePropuesta(Long tareaId , Long propuestaId);
     void finishTarea(Long tareaId);
+
+
 }

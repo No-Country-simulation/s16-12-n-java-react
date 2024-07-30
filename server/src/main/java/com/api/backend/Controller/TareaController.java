@@ -452,4 +452,5 @@ public class TareaController {
         tareaService.finishTarea(tareaId);
         return ResponseEntity.ok().body("La propuesta se finalizo con exito");
     }
+
 }

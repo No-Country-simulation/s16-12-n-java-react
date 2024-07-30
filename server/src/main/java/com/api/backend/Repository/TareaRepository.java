@@ -30,6 +30,6 @@ public interface TareaRepository extends JpaRepository<Tarea, Long> {
     Page<Tarea> findByFechaPublicacionGreaterThanEqual(LocalDate fechaPublicacion, Pageable pageable);
 
     Page<Tarea> findByFechaPublicacionBetween(LocalDate fechaPublicacion, LocalDate plazo, Pageable pageable);
-
     Page<Tarea> findAllByStatusTrueAndEstadoTarea(Pageable pageable, EstadoTarea estadoTarea);
+
 }
