@@ -35,7 +35,6 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Lazy
 public class TareaServiceImpl implements TareaService {
 
     
@@ -43,13 +42,14 @@ public class TareaServiceImpl implements TareaService {
     private final UsuarioServiceImpl usuarioService;
     private final HabilidadServiceImpl habilidadService;
     private final CategoriaServiceImpl categoriaService;
+    private final PropuestaService propuestaService;
     private final TareaMapper tareaMapper;
     
     
 
     @Override
     public Page<TareaResponseDTO> findAllTasks(Pageable pageable) {
-        Page<Tarea> task = tareaRepository.findAllByStatusTrue(pageable);
+        Page<Tarea> task = tareaRepository.findAllByStatusTrueAndEstadoTarea(pageable,EstadoTarea.PUBLICADA);
         if (task.isEmpty()) throw new TaskNotFoundException("No hay tareas");
         return task.map(tareaMapper::toTareaDTO);
     }
@@ -197,11 +197,11 @@ public class TareaServiceImpl implements TareaService {
     }
     @Override
     @Transactional
-    public void finishTarea(Long tareaId, Long propuestaId){
-        Usuario contratador = usuarioService.getLoggedUser();
+    public void finishTarea(Long tareaId){
+        Usuario freelance = usuarioService.getLoggedUser();
         Tarea tarea = getTaskById(tareaId);
-        Propuesta propuesta = propuestaService.getPropuestaById(propuestaId);
-        if(Objects.equals(propuesta.getFreelance().getId(), tarea.getFreelance().getId())){
+
+        if(Objects.equals(tarea.getFreelance().getId(), freelance.getId())){
             throw new OnlyFreelanceCanFinishTask("Solo el freelance asignado puede finalizar la tarea");
         }
         tarea.setEstadoTarea(EstadoTarea.COMPLETADA);

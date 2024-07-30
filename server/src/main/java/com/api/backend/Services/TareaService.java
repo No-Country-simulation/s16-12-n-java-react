@@ -28,5 +28,5 @@ public interface TareaService {
     Page<TareaResponseDTO> findTaskByRangeDate(TareaDateDTO rangeDate, Pageable pageable);
     void acceptPropuesta(Long tareaId, Long propuestaId);
     void declinePropuesta(Long tareaId , Long propuestaId);
-    void finishTarea(Long tareaId, Long propuestaId);
+    void finishTarea(Long tareaId);
 }

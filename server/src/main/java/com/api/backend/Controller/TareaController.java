@@ -2,9 +2,7 @@ package com.api.backend.Controller;
 
 
 import com.api.backend.DTO.Error.ErrorResponseDto;
-import com.api.backend.DTO.Tarea.TareaDTO;
-import com.api.backend.DTO.Tarea.TareaResponseDTO;
-import com.api.backend.DTO.Tarea.TareaUpdateDTO;
+import com.api.backend.DTO.Tarea.*;
 import com.api.backend.Services.impl.TareaServiceImpl;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -427,7 +425,7 @@ public class TareaController {
     }
     @Operation(
             summary="Endpoint finaliza una propuesta para una tarea",
-            description = "Este endpoint solo puede ser usado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse, este cambia el estado de la propuesta y de la tarea, pide como parametros el id de la tarea y el id de la propuesta",
+            description = "Este endpoint solo puede ser usado por usuarios registrados y logueados, y requiere para su autenticación del ingreso del JWT que se obtiene al loguearse, pide como parametros el id de la tarea",
             method = "PUT",
             responses = {
                     @ApiResponse(
@@ -450,8 +448,8 @@ public class TareaController {
             }
     )
     @PutMapping("finishTarea")
-    public ResponseEntity<String> finishPropuesta(@RequestParam Long tareaId, @RequestParam Long propuestaId){
-        tareaService.finishTarea(tareaId,propuestaId);
+    public ResponseEntity<String> finishPropuesta(@RequestParam Long tareaId){
+        tareaService.finishTarea(tareaId);
         return ResponseEntity.ok().body("La propuesta se finalizo con exito");
     }
 }

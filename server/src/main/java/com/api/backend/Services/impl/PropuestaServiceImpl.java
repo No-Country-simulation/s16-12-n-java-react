@@ -17,6 +17,8 @@ import com.api.backend.entities.Usuario;
 import com.api.backend.entities.enums.EstadoPropuesta;
 import com.api.backend.entities.enums.EstadoTarea;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,10 +32,13 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class PropuestaServiceImpl implements PropuestaService {
 
-    private final TareaService tareaService;
+    @Lazy
+    @Autowired
+    private TareaService tareaService;
     private final UsuarioServiceImpl usuarioService;
     private final PropuestaRepository propuestaRepository;
     private final PropuestaMapper propuestaMapper;
+
 
 
 
