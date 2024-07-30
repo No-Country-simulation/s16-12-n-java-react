@@ -10,7 +10,7 @@ export interface TaskData {
   descripcion: string;
   presupuesto: number;
   imagenUrl: string;
-  plazo: Date;
+  plazo: string;
   nombreCategoria: string;
   nombreHabilidades: string[];
 }
@@ -63,4 +63,18 @@ export interface PaginatedResponse {
   first: boolean;
   last: boolean;
   empty: boolean;
+}
+
+export interface Freelance {
+  id: number;
+  nombre: string;
+  email: string;
+}
+
+export interface ApplicationData {
+  id: number;
+  descripcion: string;
+  fechaEnvioPropuesta: string;
+  estado: string;
+  freelance: Freelance;
 }

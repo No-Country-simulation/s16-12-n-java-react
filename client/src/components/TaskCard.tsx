@@ -14,7 +14,6 @@ interface TaskCardProps {
 
 export const TaskCard = ({ task }: TaskCardProps) => {
   const { id, titulo, imagenUrl } = task;
-  console.log(id);
 
   return (
     <Card className=''>
