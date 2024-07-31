@@ -13,15 +13,14 @@ const AceptarORechazarPropuesta = () => {
         <h2 className='text-2xl my-4'>
           Comentarios: Estoy disponible para comenzar de inmediato
         </h2>
-
         <div className='my-20 text-center'>
           <Link to='/'>
-            <button className='hover:bg-black hover:text-white border-black bg-white text-black text-xl border rounded-xl w-1/4 py-2 mx-4'>
+            <button className=' bg-palette_primary text-white text-xl border rounded-xl w-1/4 py-2 mx-4'>
               Aceptar
             </button>
           </Link>
           <Link to='/'>
-            <button className='hover:bg-black hover:text-white border-black bg-white text-black  text-xl border rounded-xl w-1/4 py-2 mx-4'>
+            <button className=' bg-palette_error text-white  text-xl border rounded-xl w-1/4 py-2 mx-4'>
               Rechazar
             </button>
           </Link>
