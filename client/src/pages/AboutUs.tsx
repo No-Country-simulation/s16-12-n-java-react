@@ -1,35 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-
-interface Persona {
-  imagen: string;
-  nombre: string;
-  bandera: string;
-  rol: string;
-  pais: string;
-  hobbies: string;
-  herramienta: string;
-  links: {
-    facebook?: string;
-    twitter?: string;
-    instagram?: string;
-    linkedin?: string;
-    [key: string]: string | undefined;
-  };
-}
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from 'react';
+import cards from '../utils/cards'; // Ajusta la ruta según la ubicación de tu archivo data.js
 
 const AboutUs = () => {
-  const [data, setData] = useState<Persona[] | null>(null);
-
-  useEffect(() => {
-    fetch('/cards.json')
-      .then((response) => {
-        if (!response.ok) throw new Error('Archivo no encontrado');
-        return response.json();
-      })
-      .then((data) => setData(data.cards))
-      .catch((error) => console.error('Ha ocurrido un error', error));
-  }, []);
+  const [data] = useState(cards);
 
   const colors = [
     'bg-palette_success_card',
@@ -68,19 +42,21 @@ const AboutUs = () => {
               <div className='text-[16px]'>
                 <p>País: {persona.pais}</p>
                 <p>Hobbies: {persona.hobbies}</p>
-                <p>Herramientas favoritas: {persona.herramienta}</p>
+                <p>Herramienta: {persona.herramienta}</p>
               </div>
-              <div className='flex space-x-2'>
-                {Object.entries(persona.links).map(([key, link]) =>
-                  link ? (
-                    <Link key={key} to={link}>
-                      <img
-                        src={`src/assets/icons/${key}.png`}
-                        alt={key}
-                        className='size-6'
-                      />
-                    </Link>
-                  ) : null
+              <div className='flex flex-wrap gap-2 mt-2'>
+                {Object.entries(persona.links).map(
+                  ([key, { url, icon: Icon }]) => (
+                    <a
+                      key={key}
+                      href={url}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='text-blue-600 hover:underline'
+                    >
+                      <Icon className='w-6 h-6' style={{ color: 'black' }} />{' '}
+                    </a>
+                  )
                 )}
               </div>
             </div>
