@@ -27,12 +27,12 @@ const RevisionDeTareas = () => {
         </div>
         <div className='my-20 text-center'>
           <Link to='/'>
-            <button className='bg-black text-white border-blacktext-xl border rounded-xl w-1/4 py-2 mx-4'>
+            <button className='bg-palette_primary text-white  text-xl border rounded-xl w-1/4 py-2 mx-4'>
               Aceptar Trabajo
             </button>
           </Link>
           <Link to='/'>
-            <button className='hover:bg-black hover:text-white border-black bg-white text-black  text-xl border rounded-xl w-1/4 py-2 mx-4'>
+            <button className=' border-palette_success bg-white text-palette_success  text-xl border rounded-xl w-1/4 py-2 mx-4'>
               Solicitar Modificacion
             </button>
           </Link>

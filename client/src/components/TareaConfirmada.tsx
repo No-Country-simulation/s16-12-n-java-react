@@ -14,7 +14,7 @@ const TareaConfirmada = () => {
         </ul>
         <div className='my-40 text-center'>
           <Link to='/Dashboard'>
-            <button className='bg-black text-white text-xl border rounded-xl w-1/4 py-2'>
+            <button className='bg-palette_primary text-white text-xl border rounded-xl w-1/4 py-2'>
               Regresar al Dashboard
             </button>
           </Link>

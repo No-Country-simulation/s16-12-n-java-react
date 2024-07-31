@@ -9,7 +9,7 @@ const NuevaPropuestaDetallada = () => {
           <h1 className='text-left pl-24 text-4xl my-4'>Título de la Tarea</h1>
           <Link to='/NuevaTarea'>
             <button className='my-4 pr-24'>
-              <h2 className='text-xl text-right '>X</h2>
+              <h2 className='text-xl text-right text-palette_error'>X</h2>
             </button>
           </Link>
         </div>
@@ -30,9 +30,11 @@ const NuevaPropuestaDetallada = () => {
         <div className='px-24'>
           <h2 className='py-3'>Imagen</h2>
           <div className='flex flex-row items-center border border-black pl-4 p-2 rounded-xl'>
-            <Image />
-            <h2 className='px-4'>Subir nueva imagen</h2>
-            <Upload />
+            <div className='bg-palette_success text-white'>
+              <Image />
+              <h2 className='px-4'>Subir nueva imagen</h2>
+              <Upload />
+            </div>
           </div>
         </div>
         <div className='px-24'>
@@ -49,7 +51,7 @@ const NuevaPropuestaDetallada = () => {
         </div>
         <div className='flex justify-center'>
           <Link to='/NuevaTarea'>
-            <button className='text-white text-xl bg-black mt-24 mb-8 w-60 p-2 border rounded-xl'>
+            <button className='text-white text-xl bg-palette_primary mt-24 mb-8 w-60 p-2 border rounded-xl'>
               Publicar nueva edición
             </button>
           </Link>
