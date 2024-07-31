@@ -57,11 +57,11 @@ Integrando características esenciales como sistemas de calificación y reseña,
 | `Backend`  | Mikel Cedeño |  [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mikeljcp/)  [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mikeljcp)          |
 
 ## 🐞 Evidencia Tester QA
-#### _Requerimientos y Objetivos del proyecto:_
-  https://
+#### _Plan de Pruebas:_
+  https://docs.google.com/document/d/1KMH0n__QzdCUS0uDu0_w8LhtR0YUzan0i5xwW7bBJP8/edit?usp=sharing
 
-#### _Historias de Usuario y Criterios de Aceptación:_
-  https://
+#### _Requerimientos, Historias de Usuario y Criterios de Aceptación:_
+  https://docs.google.com/document/d/11LOoWEM-yI5Rk5246pUgQo1oA2qVHqsOUiQBXI2gtD4/edit?usp=sharing
 
 #### _Casos de Prueba:_
   https://
