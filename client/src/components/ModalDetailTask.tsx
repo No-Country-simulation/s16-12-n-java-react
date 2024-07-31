@@ -10,6 +10,7 @@ import {
 } from './ui/dialog';
 import useTaskStore from '@/store/taskStore';
 import { Skeleton } from './ui/skeleton';
+import ModalFormApplication from './ModalFormApplication';
 
 interface ModalDetailTaskProps {
   id: number;
@@ -17,6 +18,7 @@ interface ModalDetailTaskProps {
 
 export const ModalDetailTask = ({ id }: ModalDetailTaskProps) => {
   const [open, setOpen] = useState(false);
+  const [applyOpen, setApplyOpen] = useState(false);
   const { fetchTaskById, currentTask, isLoading } = useTaskStore();
 
   useEffect(() => {
@@ -68,7 +70,15 @@ export const ModalDetailTask = ({ id }: ModalDetailTaskProps) => {
               <DialogDescription>{currentTask?.descripcion}</DialogDescription>
             </DialogHeader>
             <div className='py-5 flex flex-col gap-5 w-1/2'>
-              <Button className='bg-[#2C3E50]'>Aplicar</Button>
+              <Button
+                className='bg-[#2C3E50]'
+                onClick={() => {
+                  setOpen(false);
+                  setApplyOpen(true);
+                }}
+              >
+                Aplicar
+              </Button>
               <Button
                 variant='outline'
                 className='text-[#1C8C4E] border-[#1C8C4E]'
@@ -92,6 +102,11 @@ export const ModalDetailTask = ({ id }: ModalDetailTaskProps) => {
           </div>
         )}
       </DialogContent>
+      <ModalFormApplication
+        id={id}
+        applyOpen={applyOpen}
+        setApplyOpen={setApplyOpen}
+      />
     </Dialog>
   );
 };

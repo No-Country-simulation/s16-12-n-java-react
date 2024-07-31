@@ -12,6 +12,8 @@ import { getApplicationUser } from '@/services/userApplication';
 import { createTask } from '@/services/createTask';
 import { editTask } from '@/services/updateTask';
 import { deleteTask } from '@/services/deleteTask';
+import { acceptApplication } from '@/services/userAcceptApplication';
+import { declineApplication } from '@/services/userDeclineApplication';
 
 interface AuthTaskState {
   token: string | null;
@@ -32,6 +34,8 @@ interface AuthTaskState {
   createTask: (taskData: TaskData) => Promise<any>;
   editTask: (id: number) => Promise<any>;
   deleteTask: (id: number) => Promise<void>;
+  acceptApplication: (tareaId: number, propuestaId: number) => Promise<any>;
+  declineApplication: (tareaId: number, propuestaId: number) => Promise<any>;
   clearError: () => void;
 }
 
@@ -173,6 +177,30 @@ const useAuthTaskStore = create<AuthTaskState>((set, get) => {
       await handleApiCall(
         () => deleteTask(token, id),
         'Error al eliminar la tarea'
+      );
+    },
+
+    acceptApplication: async (tareaId: number, propuestaId: number) => {
+      const { token } = get();
+      if (!token) {
+        set({ error: 'No se encontró el token de autenticación' });
+        return;
+      }
+      return handleApiCall(
+        () => acceptApplication(token, tareaId, propuestaId),
+        'Error al aceptar la propuesta'
+      );
+    },
+
+    declineApplication: async (tareaId: number, propuestaId: number) => {
+      const { token } = get();
+      if (!token) {
+        set({ error: 'No se encontró el token de autenticación' });
+        return;
+      }
+      return handleApiCall(
+        () => declineApplication(token, tareaId, propuestaId),
+        'Error al rechazar la propuesta'
       );
     },
 

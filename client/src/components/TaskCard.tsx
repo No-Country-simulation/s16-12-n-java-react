@@ -1,3 +1,4 @@
+import { useLocation, Link } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -7,12 +8,14 @@ import {
 } from '@/components/ui/card';
 import { ModalDetailTask } from './ModalDetailTask';
 import { TaskResponseData } from '@/types/types';
+import { Button } from './ui/button';
 
 interface TaskCardProps {
   task: TaskResponseData;
 }
 
 export const TaskCard = ({ task }: TaskCardProps) => {
+  const location = useLocation();
   const { id, titulo, imagenUrl } = task;
 
   return (
@@ -25,8 +28,16 @@ export const TaskCard = ({ task }: TaskCardProps) => {
       <CardContent className='flex mt-4'>
         <CardTitle className='text-[#2C3E50]'>{titulo}</CardTitle>
       </CardContent>
-      <CardFooter>
-        <ModalDetailTask id={id} />
+      <CardFooter className='flex justify-center'>
+        {location.pathname === '/tareas/mis-tareas' ? (
+          <Link to={`/tareas/postulaciones/${id}`}>
+            <Button variant='default' className='bg-[#2C3E50]'>
+              Ver postulaciones
+            </Button>
+          </Link>
+        ) : (
+          <ModalDetailTask id={id} />
+        )}
       </CardFooter>
     </Card>
   );

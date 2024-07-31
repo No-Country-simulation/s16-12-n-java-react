@@ -78,3 +78,8 @@ export interface ApplicationData {
   estado: string;
   freelance: Freelance;
 }
+
+export interface ApplicationFormData {
+  descripcion: string;
+  tareaId: number;
+}
