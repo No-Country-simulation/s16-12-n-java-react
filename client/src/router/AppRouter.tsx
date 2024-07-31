@@ -14,6 +14,7 @@ import NotFound from '@/pages/NotFound';
 import AboutUs from '@/pages/AboutUs';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
+import Postulaciones from '@/pages/Postulaciones';
 
 export const AppRouter = () => {
   const { isAuthenticated } = useAuthStore();
@@ -50,6 +51,14 @@ export const AppRouter = () => {
           element={
             <ProtectedRoute>
               <Applications />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/tareas/postulaciones/:tareaId'
+          element={
+            <ProtectedRoute>
+              <Postulaciones />
             </ProtectedRoute>
           }
         />

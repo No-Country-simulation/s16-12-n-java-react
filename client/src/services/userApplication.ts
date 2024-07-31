@@ -1,5 +1,5 @@
 import { axiosClient } from '@/lib/axiosClient';
-import { ApplicationData } from '@/types/types';
+import { ApplicationFormData } from '@/types/types';
 
 export const updateApplication = async (token: string, id: number) => {
   try {
@@ -27,7 +27,7 @@ export const deleteApplication = async (token: string, id: number) => {
 
 export const createApplication = async (
   token: string,
-  applicationData: ApplicationData
+  applicationData: ApplicationFormData
 ): Promise<any> => {
   try {
     const res = await axiosClient.post(
@@ -52,7 +52,7 @@ export const getApplicationByTask = async (token: string, tareaId: number) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    return res.data;
+    return res.data.content;
   } catch (error) {
     console.error('Error al obtener las propuestas:', error);
     throw error;
