@@ -35,7 +35,7 @@ const Home = () => {
                 Desarrollo de Software
               </AccordionTrigger>
               <AccordionContent>
-                Lorem ipsum dolor sit amet consectetur adipisicing
+                Resolver problemas específicos utilizando lenguajes de programación.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value='item-2'>
@@ -43,7 +43,7 @@ const Home = () => {
                 Redacción y Traducción
               </AccordionTrigger>
               <AccordionContent>
-                Lorem ipsum dolor sit amet consectetur adipisicing
+                Crear productos o experiencias planificando y ejecutando ideas innovadoras.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -54,7 +54,7 @@ const Home = () => {
                 Diseño y Creatividad
               </AccordionTrigger>
               <AccordionContent>
-                Lorem ipsum dolor sit amet consectetur adipisicing
+                Comunicación de ideas de manera clara y efectiva, en español o en otro idioma.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
