@@ -3,8 +3,10 @@ import { FaFacebook, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { TbWorldWww } from 'react-icons/tb';
 
 import Glory from '../assets/equipo/Glory.jpg';
+import Noe from '../assets/equipo/Noe.jpg';
 import Yohan from '../assets/equipo/Yohan.jpg';
-import Brian from '../assets/equipo/silueta.jpg';
+import Brian from '../assets/equipo/Brian.png';
+import Fabrizio from '../assets/equipo/Fabrizio.jpg';
 import Mikel from '../assets/equipo/Mikel.jpg';
 import Lucio from '../assets/equipo/Lucio.jpg';
 import Adan from '../assets/equipo/Adan.png';
@@ -59,8 +61,8 @@ const cards = [
     bandera: EcuadorFlag,
     rol: 'Back-End',
     pais: 'Ecuador',
-    hobbies: 'Dolor sit amet',
-    herramienta: 'herramienta específica',
+    hobbies: 'Jugar videojuegos, programar, ver películas y series',
+    herramienta: ' Intellij, VS Code , Postman',
     links: {
       facebook: { url: 'https://facebook.com/brian', icon: FaFacebook },
       github: { url: 'https://github.com/TeslaXZ', icon: FaGithub },
@@ -144,7 +146,7 @@ const cards = [
     },
   },
   {
-    imagen: Brian,
+    imagen: Noe,
     nombre: 'Noé Machaca',
     bandera: PeruFlag,
     rol: 'Front-End',
@@ -178,6 +180,27 @@ const cards = [
       },
       linkedin: {
         url: 'https://www.linkedin.com/in/fernandovergel/',
+        icon: FaLinkedin,
+      },
+    },
+  },
+  {
+    imagen: Fabrizio,
+    nombre: 'Fabrizio Flamini',
+    bandera: ArgentinaFlag,
+    rol: 'Team Leader',
+    pais: 'Argentina',
+    hobbies: 'Estudir abogacia',
+    herramienta: 'Python, Power Bi',
+    links: {
+      instagram: { url: 'https://www.instagram.com/nemgf/', icon: FaInstagram },
+      github: { url: 'https://github.com/nemgf', icon: FaGithub },
+      web: {
+        url: 'https://nemgf.notion.site/Fernando-Vergel-47d3f9dee2ab419aba7d9d1a186f686d',
+        icon: TbWorldWww,
+      },
+      linkedin: {
+        url: 'https://www.linkedin.com/in/fabrizioflamini/',
         icon: FaLinkedin,
       },
     },
