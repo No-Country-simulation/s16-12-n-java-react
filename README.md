@@ -7,7 +7,8 @@
   
 </div>
 
----<img src="https://res.cloudinary.com/NOMBRE DE LA IMAGEN.jpg" />---
+[![Colaborart](https://i.imgur.com/pe6Qzro.png)](https://www.nemgf.com/wp-content/uploads/2024/08/Untitled-video-Made-with-Clipchamp-3.mp4)
+
 
 ## ℹ️ Información del Producto
 
@@ -63,11 +64,8 @@ Integrando características esenciales como sistemas de calificación y reseña,
 #### _Requerimientos, Historias de Usuario y Criterios de Aceptación:_
   https://docs.google.com/document/d/11LOoWEM-yI5Rk5246pUgQo1oA2qVHqsOUiQBXI2gtD4/edit?usp=sharing
 
-#### _Casos de Prueba:_
-  https://
-
 #### _Gráficos:_
-  https://
+  https://drive.google.com/drive/folders/1jLTNOEX_jK3Yc5clqfihkgqQGGc6cPVT?usp=drive_link
 
 ## 🎨 Evidencia UX/UI
 #### _Diseño en Figma_
